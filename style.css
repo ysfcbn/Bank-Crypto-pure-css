@@ -1,0 +1,1743 @@
+@import url("https://fonts.googleapis.com/css2?family=Graduate&display=swap");
+/* @font-face {
+  font-family: "digital-clock-font";
+  src: url("put_the_location_to_your_font.otf");
+} */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Open Sans", sans-serif;
+  background-color: rgba(218, 214, 214, 0.5);
+}
+section {
+  height: 100%;
+  width: 100%;
+}
+nav {
+  position: relative;
+  z-index: 800;
+  padding: 1rem 3rem;
+  height: 13%;
+  min-height: 60px;
+  background-color: #555;
+  transition: all 1s ease;
+}
+input {
+  outline: none;
+  border: 1px solid rgb(128, 128, 128);
+  border-radius: 30px;
+  padding: 2px 4px;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-align: start;
+}
+
+input:focus::placeholder {
+  color: goldenrod;
+}
+label {
+  cursor: pointer;
+}
+.Form {
+  margin-top: 3rem;
+}
+.navbar input:focus,
+.Log-Account input:focus,
+.Create-Account input:focus,
+.Send-Code input:focus {
+  box-shadow: 0 0 2px 1px goldenrod;
+  animation: move 0.1s ease-in;
+  background-color: #555;
+  color: rgb(255, 255, 255);
+}
+
+.Create-Account p,
+.Log-Account p {
+  font-weight: 600;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+/* 
+.Create-Account input::placeholder {
+   padding: 0 2rem; 
+
+}
+*/
+.hidden {
+  display: none;
+}
+.invisible {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Navbar */
+
+.navbar {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.navbar input {
+  width: 30%;
+  height: 2.5rem;
+  text-align: center;
+  margin-right: 2rem;
+}
+.navbar form {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.nav-log button {
+  font-size: 24px;
+  width: 3.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  background: transparent;
+}
+.welcome {
+  width: 50%;
+  color: #f0f0f0;
+  text-shadow: 2px 3px 3px rgb(199, 191, 191);
+}
+.nav-log {
+  transition: transform 0.5s ease-in;
+  transform: translateX(0rem);
+}
+
+.navbar-currency {
+  height: 100%;
+  width: 24rem;
+  display: flex;
+  justify-content: space-between;
+  animation: scale 1.5s ease;
+  transition: all 0.5s ease;
+}
+.navbar-currency select {
+  width: 7rem;
+  height: 2rem;
+  text-align: center;
+  color: goldenrod;
+  cursor: pointer;
+}
+.navbar-currency label {
+  text-align: center;
+  font-size: 18px;
+  text-shadow: 2px 3px 3px rgb(199, 191, 191);
+  color: #f0f0f0;
+  cursor: pointer;
+  position: relative;
+  z-index: 999;
+}
+.navbar-currency img {
+  margin: -1rem 1rem;
+}
+
+/* Create Account */
+
+.Create-Account {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 35%;
+  height: 70%;
+  max-width: 400px;
+  min-width: 355px;
+  max-height: 720px;
+  min-height: 500px;
+  background-color: #ffffff;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  border-radius: 50px;
+  transition: all 0.25s ease;
+}
+.Create-Account .Full-Name,
+.password,
+.confirm-password,
+.e-mail,
+.tel {
+  position: relative;
+}
+.Create-Account form p {
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.Create-Account input {
+  display: block;
+  margin: 1.5rem;
+  padding: 6px 40px;
+  font-size: 18px;
+  color: rgb(90, 177, 109);
+}
+.Create-Account form img {
+  width: 35px;
+  position: absolute;
+  top: 0px;
+  left: 25px;
+  z-index: 3;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.Create-Account form img:hover,
+.Log-Account form img:hover {
+  transform: scale(1.2);
+  transition: all 0.5s ease;
+  animation: emoji 0.5s ease;
+}
+
+#email {
+  width: 30px;
+  left: 28px;
+}
+.Sign-Up button {
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 8px 10px;
+  border-radius: 30px;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #000052;
+  box-shadow: 0px 0px 10px 2px rgb(65, 64, 64);
+  transition: all 0.25s ease;
+}
+
+.Sign-Up button:hover {
+  color: goldenrod;
+  background-color: #fff;
+  transform: scale(1.2);
+  transition: all 0.5s ease;
+}
+
+#go-sign-in,
+#go-sign-up {
+  text-transform: uppercase;
+  font-size: 18px;
+  box-shadow: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgb(21, 175, 21);
+}
+#go-sign-up {
+  color: #000052;
+}
+
+.Log-Account p {
+  margin-bottom: 2rem;
+}
+/* Log Account */
+
+.Log-Account {
+  opacity: 0;
+  position: relative;
+  left: 25rem;
+  width: 35%;
+  height: 70%;
+  max-width: 400px;
+  min-width: 355px;
+  max-height: 720px;
+  min-height: 620px;
+  background-color: #ffffff;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  border-radius: 50px;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+.Log-Account .Log-Full-Name,
+.Log-Password,
+.Log-Tel {
+  position: relative;
+}
+.Log-Account form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.Log-Account form p {
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.Log-Account input {
+  display: block;
+  margin: 0.8rem;
+  padding: 6px 36px;
+  font-size: 18px;
+  color: rgb(90, 177, 109);
+}
+.Log-Account form img {
+  width: 35px;
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  background-color: transparent;
+  z-index: 10;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.5s ease;
+}
+.eye {
+  color: #000000;
+  cursor: pointer;
+  top: 1.5rem;
+  right: 1.7rem;
+  position: absolute;
+}
+.closed-eye {
+  color: #000000;
+  cursor: pointer;
+  top: 1.5rem;
+  right: 1.7rem;
+  position: absolute;
+}
+.Log-Account select,
+#currency-nav {
+  font-size: 16px;
+  box-shadow: inset 0 0 10px #555;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  margin: 2rem 0.5rem;
+}
+#currency-nav {
+  position: relative;
+  z-index: 999;
+}
+.Log-Account select {
+  color: goldenrod;
+  font-weight: 600;
+  height: 30%;
+}
+.logo {
+  position: absolute;
+  width: 90%;
+  text-align: center;
+  transition: all 1s ease;
+}
+.logo2 img {
+  border-radius: 10px;
+  box-shadow: 10px 15px 20px rgb(128, 128, 128);
+}
+.Sign-In button {
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 8px 10px;
+  border-radius: 30px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  background-color: #1a9c2f;
+  box-shadow: 0px 0px 10px 2px rgb(128, 128, 128);
+  transition: all 0.25s ease;
+}
+.Sign-In button:hover {
+  color: goldenrod;
+  background-color: #fff;
+  transform: scale(1.2);
+  transition: all 0.25s ease;
+}
+
+.Log-Tel {
+  transition: transfrom 1s ease;
+}
+.Log-Tel .Send-Code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Log-Tel div input {
+  position: relative;
+  display: inline-block;
+  width: 60%;
+  left: -3rem;
+  outline: none;
+  border: 1px solid rgb(128, 128, 128);
+  padding: 2px 4px;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-align: start;
+  border-radius: 0;
+}
+#send-code {
+  position: absolute;
+  right: 15px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  color: goldenrod;
+  font-size: 12px;
+  max-width: 30%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: rgb(244, 244, 248);
+  box-shadow: 0px 0px 2px 2px rgba(65, 64, 64, 0.5);
+}
+#send-code:hover {
+  font-weight: 900;
+  box-shadow: inset 0 0 10px #555;
+}
+#send-code:active {
+  background-color: rgba(54, 53, 53, 0.8);
+}
+#send-code .styles {
+  background-color: #f4f4f8;
+  box-shadow: 0px 0px 5px 2px rgba(65, 64, 64, 0.5);
+  color: goldenrod;
+}
+#send-code .styles:hover {
+  font-weight: 900;
+  box-shadow: inset 0 0 10px #555;
+}
+/* Geçişler  ve Animasyonlar*/
+
+.Create {
+  transform: translateX(-25rem);
+  opacity: 0;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+.Log {
+  position: relative;
+  transform: translateX(-100%);
+  opacity: 1;
+  pointer-events: all;
+  transition: all 0.25s ease;
+}
+.btnClicks {
+  animation: move 0.1s ease-in;
+}
+.move-up {
+  animation: moveup 0.1s ease 2;
+}
+.vibration {
+  animation: vibra 0.5s ease 4;
+}
+#open-padlock {
+  top: 0.8rem;
+  left: 1rem;
+  transform: scale(0.4);
+}
+
+.open-padlock-scale {
+  visibility: visible;
+  display: block;
+  z-index: 10;
+  opacity: 1;
+  top: 0.5rem;
+  left: 1rem;
+  animation: opened 1s ease forwards;
+}
+
+/* Animations */
+@keyframes scale {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes auto-logout {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.5);
+  }
+}
+@keyframes scale-increase {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.3;
+    transform: scale(2.8);
+  }
+}
+@keyframes scale-decrease {
+  from {
+    opacity: 1;
+    transform: scale(2.5);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+@keyframes emoji {
+  from {
+    transform: scale(1);
+    transform: rotate(0deg);
+  }
+  to {
+    transform: scale(1.2);
+
+    transform: rotate(360deg);
+  }
+}
+@keyframes move {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(1rem);
+  }
+}
+@keyframes navlog-btn-move {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(0.5rem);
+  }
+}
+@keyframes moveup {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1rem);
+  }
+}
+@keyframes move-down1 {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
+@keyframes move-down2 {
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes blanks {
+  from {
+    top: 0;
+  }
+  to {
+    top: 2.1rem;
+  }
+}
+@keyframes blanks-transiction {
+  from {
+    top: -8rem;
+    opacity: 0.3;
+  }
+  to {
+    top: 0rem;
+    opacity: 1;
+  }
+}
+@keyframes opacity {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes opacity-scale {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+@keyframes opacity-reverse {
+  from {
+    transform: scale(0.5);
+
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+
+    opacity: 1;
+  }
+}
+@keyframes scale-reverse {
+  from {
+    transform: scale(1.5);
+
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+
+    opacity: 1;
+  }
+}
+@keyframes vibra {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    color: rgb(14, 236, 14);
+    transform: rotate(-15deg);
+  }
+  40% {
+    transform: rotate(15deg);
+  }
+  60% {
+    color: rgb(14, 236, 14);
+    transform: rotate(-15deg);
+  }
+  80% {
+    transform: rotate(15deg);
+  }
+  100% {
+    color: rgb(14, 236, 14);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes opened {
+  form {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(30deg);
+  }
+}
+@keyframes navlog {
+  form {
+    transform: translateX(0rem);
+  }
+  to {
+    transform: translateX(70rem);
+  }
+}
+@keyframes navlog-reverse {
+  form {
+    transform: translateX(70rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+@keyframes navlog-correct {
+  0% {
+    border-color: none;
+  }
+  5% {
+    border-left-color: #5bff6b;
+  }
+  10% {
+    border-left-color: #5bff6b;
+  }
+  15% {
+    border-left-color: #5bff6b;
+  }
+
+  20% {
+    border-left-color: #5bff6b;
+  }
+  25% {
+    border-left-color: #5bff6b;
+  }
+  30% {
+    border-top-color: #5bff6b;
+  }
+  35% {
+    border-top-color: #5bff6b;
+  }
+
+  40% {
+    border-top-color: #5bff6b;
+  }
+  45% {
+    border-top-color: #5bff6b;
+  }
+  50% {
+    border-top-color: #5bff6b;
+    box-shadow: 0px 0px 10px #5bff6b;
+  }
+  55% {
+    border-right-color: #5bff6b;
+  }
+  60% {
+    border-right-color: #5bff6b;
+  }
+  65% {
+    border-right-color: #5bff6b;
+  }
+  70% {
+    border-right-color: #5bff6b;
+  }
+  75% {
+    border-right-color: #5bff6b;
+  }
+  80% {
+    border-bottom-color: #5bff6b;
+  }
+
+  85% {
+    border-bottom-color: #5bff6b;
+  }
+  90% {
+    border-bottom-color: #5bff6b;
+  }
+  95% {
+    border-bottom-color: #5bff6b;
+  }
+  100% {
+    border-bottom-color: #5bff6b;
+  }
+}
+
+/* Can't Be Blank */
+
+.Create-Account .blank::after {
+  display: block;
+  content: "- can't be blank !";
+  position: absolute;
+  width: 55%;
+  top: 2.1rem;
+  animation: blanks 0.3s ease;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  font-size: 0.8rem;
+}
+
+/* Password Matchup */
+
+.Create-Account .not-matchup::after {
+  display: block;
+  content: "- Passwords aren't match !";
+  position: absolute;
+  width: 75%;
+  top: 2.1rem;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  animation: blanks 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.Create-Account .matchup::after {
+  display: block;
+  content: "* Passwords confirmed!";
+  position: absolute;
+  width: 70%;
+  top: 2.1rem;
+  font-weight: 600;
+  color: rgba(66, 248, 10, 0.9);
+  animation: blanks 0.3s ease;
+  font-size: 0.8rem;
+}
+
+/* Phone number valid/invalid */
+
+.tel .valid::after {
+  content: "✔";
+  color: rgb(11, 248, 11);
+  font-size: 22px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 15;
+}
+.Log-Tel .valid::before {
+  content: "✔";
+  color: rgb(11, 248, 11);
+  font-size: 22px;
+  position: absolute;
+  top: -4rem;
+  left: 10.5rem;
+  z-index: 15;
+}
+
+.tel .invalid::before {
+  content: "❌";
+  font-size: 22px;
+  position: absolute;
+  top: 0;
+  right: -7px;
+  z-index: 15;
+}
+.Log-Tel .invalid::before {
+  content: "❌";
+  font-size: 22px;
+  position: absolute;
+  top: -7.2rem;
+  right: -2.1rem;
+  z-index: 15;
+}
+
+/* Phone Number can't start "0" and can't be include "space"*/
+
+.tel .zero::after {
+  display: block;
+  content: "- Can't begin with '0' !";
+  position: absolute;
+  width: 55%;
+  top: 2.2rem;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  animation: blanks 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.Log-Tel .zero::before {
+  display: block;
+  content: "- Can't begin with '0' !";
+  position: absolute;
+  width: 200px;
+  top: -4.7rem;
+  right: 7.5rem;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  font-size: 0.8rem;
+}
+.tel .space::after {
+  display: block;
+  content: "-please set numbers between '0-9' !";
+  position: absolute;
+  width: 80%;
+  top: 2.2rem;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  animation: blanks 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.tel .length::after {
+  display: block;
+  content: "- Please Fill Correctly Number";
+  position: absolute;
+  width: 75%;
+  top: 2.2rem;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  animation: blanks 0.3s ease;
+  font-size: 0.8rem;
+}
+.Log-Tel .length::after {
+  display: block;
+  content: "- Please Fill Correctly Number";
+  position: absolute;
+  width: 200px;
+  top: -4.9rem;
+  right: 5rem;
+  font-weight: 800;
+  color: rgba(206, 5, 5, 0.9);
+  font-size: 0.8rem;
+  z-index: 15;
+}
+
+/*Logged Correct User and Password  */
+
+.Log-Account .Correct {
+  position: relative;
+}
+.Log-Account .Correct::after {
+  display: block;
+  content: "* Correct User and Password !";
+  position: absolute;
+  width: 70%;
+  top: 3rem;
+  font-weight: 600;
+  color: rgba(66, 248, 10, 0.9);
+  animation: blanks 0.3s ease;
+  font-size: 0.8rem;
+}
+
+/* Login Correct and get position for tel code  */
+.transform {
+  transform: translateY(-4.5rem);
+  transition: transform 1s ease;
+  transition-delay: 1.5s;
+}
+.opacity {
+  animation: opacity 2s linear;
+}
+.Log-Tel::before {
+  display: block;
+  content: "Set your phone number to send code";
+  position: absolute;
+  width: 80%;
+  top: -0.5rem;
+  font-weight: 800;
+  color: rgba(127, 131, 127, 0.6);
+  font-size: 0.8rem;
+}
+.Send-Code::before {
+  display: block;
+  content: "Enter the 6 digit code sent to ";
+  position: absolute;
+  width: 90%;
+  bottom: -0.8rem;
+  font-weight: 600;
+  color: rgba(127, 131, 127, 0.6);
+  font-size: 0.8rem;
+  text-align: start;
+}
+.Log-Tel span:last-child {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(127, 131, 127, 0.6);
+  right: 3rem;
+}
+
+.Log-Tel span {
+  position: absolute;
+  right: 1rem;
+  font-size: 0.8rem;
+  bottom: -0.8rem;
+}
+
+#security {
+  position: absolute;
+  top: 3.3rem;
+  left: 0.5rem;
+}
+
+.Log-Password label {
+  position: relative;
+  left: -4rem;
+  font-size: 14px;
+  color: #555;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* Correct tel number */
+.Log-Tel .Correct::after {
+  display: block;
+  content: "* we were send the 6 digits code !";
+  position: absolute;
+  width: 220px;
+  top: -1.5rem;
+  right: -5rem;
+  font-weight: 600;
+  color: rgba(66, 248, 10, 0.9);
+  animation: none;
+
+  font-size: 0.8rem;
+}
+
+/* Entered send code number */
+
+/* third time miss the log */
+.time {
+  position: absolute;
+  bottom: -4rem;
+  left: 1rem;
+  z-index: 55;
+}
+
+.message {
+  position: absolute;
+  z-index: 55;
+}
+
+/* User Acount */
+.User-Account {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+.User-Account label {
+  font-weight: 600;
+  font-size: 14px;
+}
+.User-Account input {
+  width: 25%;
+  background-color: rgba(245, 231, 231, 0.6);
+  border: none;
+  text-align: center;
+  height: 30px;
+}
+.User-Account input:focus {
+  background-color: rgba(245, 231, 231, 0.9);
+}
+.container {
+  justify-content: center;
+  margin: 2% 8%;
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(220px, 250px))
+    repeat(1, minmax(180px, 200px));
+  grid-template-rows: 100px 160px 160px 160px 40px;
+  grid-gap: 10px;
+  grid-template-areas:
+    "balances balances balances balances balances"
+    "transferans transferans transferans transfer-money transfer-money"
+    "transferans transferans transferans deposit deposit"
+    "transferans transferans transferans close-account  close-account"
+    "portfilio portfilio portfilio button button";
+}
+
+.Current-balance {
+  padding: 0 2rem 0 0;
+  background-color: #fad944a2;
+  grid-area: balances;
+  align-items: center;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: -2px 0px 10px 4px rgba(0, 0, 0, 0.253);
+  /* grid-column: 1 / 6; */
+}
+.Current-balance div:nth-child(2) {
+  height: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+.time-date {
+  display: inline-block;
+  position: absolute;
+  z-index: 900;
+  padding: 10px 10px;
+  font-size: 18px;
+  font-family: "digital-clock-font";
+}
+.Current-balance > .time-date > h3 {
+  border-bottom: 2px solid #555;
+  margin-bottom: 3px;
+}
+.Current-balance div:nth-child(2) h3 {
+  color: rgba(139, 139, 139, 0.7);
+  width: 100%;
+  text-align: end;
+  margin: 0 1rem;
+}
+
+.Current-balance div > div > div {
+  position: relative;
+}
+
+.inc-dec-value {
+  position: absolute;
+  color: red;
+  width: 100%;
+  text-align: center;
+  font-family: "Graduate", cursive;
+  text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.4);
+}
+
+.Current-balance div div img {
+  padding: 0px 5px 7px 0px;
+  width: 48px;
+}
+.total-balance {
+  font-size: 36px;
+  font-family: "Graduate", cursive;
+  text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.4);
+}
+
+.increase-value {
+  animation: scale-increase 0.75s ease;
+}
+.decrease-value {
+  animation: scale-decrease 1s ease;
+}
+.total-balance-move1 {
+  animation: move-down1 0.8s ease;
+}
+.total-balance-move2 {
+  animation: move-down2 0.75s ease;
+}
+
+.transferans {
+  background-color: rgb(250, 248, 248);
+  grid-area: transferans;
+  /* grid-column: 1/4;
+  grid-row: 2 / 5; */
+  overflow-y: scroll;
+  overflow-x: scroll;
+  border-radius: 12px;
+}
+.show-portfilio {
+  background-color: transparent;
+  grid-area: portfilio;
+  /* grid-column: 1/4;
+  grid-row: 5 /6; */
+}
+.show-portfilio div {
+  height: 100%;
+}
+.show-portfilio div ul {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.show-portfilio div ul li {
+  list-style-type: none;
+  font-weight: 600;
+  font-size: 13px;
+}
+.show-portfilio div ul li a {
+  text-decoration: none;
+  position: relative;
+  right: 1rem;
+  color: #555;
+}
+.show-portfilio div ul span {
+  padding: 0 1rem;
+}
+.show-portfilio ul li img {
+  position: relative;
+  right: -10px;
+}
+.show-portfilio ul li:first-child span {
+  color: #1a9c2f;
+  font-size: 22px;
+}
+.show-portfilio ul li:nth-child(2) span {
+  color: #c40707;
+  font-size: 22px;
+}
+.show-portfilio ul li:nth-child(3) span {
+  color: #1a9c2f;
+  font-size: 22px;
+}
+
+/* Transfer Money, Deposti, Close Account Section */
+.transfer-money {
+  background: linear-gradient(145deg, #fad578 0%, rgb(207, 152, 11) 100%);
+  grid-area: transfer-money;
+  /* grid-column: 4/6; */
+  border-radius: 15px;
+}
+.deposit {
+  background: linear-gradient(145deg, #69ca72 0%, #0f7e1a 100%);
+  grid-area: deposit;
+  /* grid-column: 4/6; */
+  border-radius: 15px;
+}
+.deposit button {
+  margin-left: 10px;
+  height: 100%;
+}
+.close-account {
+  background: linear-gradient(145deg, #f05579 0%, #970325 100%);
+  grid-area: close-account;
+  /* grid-column: 4/6; */
+  border-radius: 15px;
+}
+.button {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  background-color: blanchedalmond transparent;
+  grid-area: button;
+  /* grid-column: 4/6; */
+}
+/* .button div:nth-child(1) {
+  width: 10%;
+} */
+.button div:nth-child(1) {
+  height: 50%;
+}
+.button h5 {
+  align-self: flex-end;
+  color: rgb(71, 70, 70);
+  font-size: medium;
+  margin-right: 45px;
+}
+.button .countdown {
+  margin-left: 14px;
+  position: absolute;
+  font-family: "Orbitron";
+  font-size: 18px;
+  color: rgb(71, 70, 70);
+}
+.Log-Out {
+  height: 200%;
+  width: 220%;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0px 2px 8px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+.Log-Out:hover {
+  color: #970325;
+  transform: scale(1.2);
+  border: 1px solid #970325;
+}
+.transfer-money .content1,
+.deposit .content1,
+.close-account .content1 {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin: 0 2rem;
+}
+.transfer-money .content1 div,
+.close-account .content1 div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.transfer-money button,
+.deposit button,
+.close-account button {
+  font-size: 20px;
+  width: 40px;
+  height: 80%;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.4);
+}
+
+.absolute {
+  position: absolute;
+  top: 5rem;
+  z-index: 50;
+}
+
+.sort {
+  font-size: 18px;
+  height: 2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: none;
+}
+.sort:hover {
+  color: goldenrod;
+}
+
+.coin {
+  position: relative;
+  top: 5px;
+}
+.account-transactions {
+  height: 15%;
+  /* padding: 0 3rem; */
+}
+.account-transactions ul {
+  margin-bottom: 5px;
+  height: 5.75rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 3rem;
+  position: relative;
+  box-shadow: 12px 4px 5px 1px rgba(150, 145, 145, 0.2);
+  border-bottom: 2px solid rgba(173, 160, 160, 0.4);
+  animation: opacity-reverse 1s ease;
+}
+.account-transactions ul li {
+  list-style: none;
+  animation: scale 1s ease;
+}
+.account-transactions ul li:nth-child(1) {
+  background-color: rgba(173, 160, 160, 0.4);
+  color: #f0f0f0;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4rem;
+  padding: 4px 8px;
+}
+
+.account-transactions ul li:nth-child(2) {
+  color: rgba(99, 91, 91, 0.7);
+  font-weight: 600;
+  font-size: 17px;
+}
+.account-transactions ul li:nth-child(3) {
+  color: rgba(99, 91, 91, 0.7);
+  font-weight: 600;
+}
+.account-transactions ul li:nth-child(4) {
+  color: rgba(99, 91, 91, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.account-transactions ul li:nth-child(5) {
+  color: rgba(99, 91, 91, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.account-transactions {
+  display: flex;
+  flex-direction: column-reverse;
+  height: auto;
+}
+
+.content1 div label {
+  text-align: center;
+}
+
+@media only screen and (max-width: 780px) and (min-width: 600px) {
+  .navbar-currency {
+    margin-left: 25%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    grid-template-columns: repeat(1, minmax(400px, 1800px));
+    grid-template-rows: 90px 260px 0.01fr 100px 100px 100px 0.5fr;
+    grid-gap: 5px;
+    margin: 1% 12% 5% 12%;
+    grid-template-areas:
+      " balances "
+      "transferans"
+      "portfilio "
+      "transfer-money"
+      "deposit"
+      "close-account"
+      "button";
+  }
+  nav {
+    height: 11%;
+    transition: all 1s ease;
+  }
+  #deposit-amount {
+    margin-left: 10px;
+  }
+  .navbar-currency {
+    position: relative;
+    right: 4rem;
+    top: -0.5rem;
+  }
+  .button h5 {
+    margin-top: 1rem;
+  }
+  .logo {
+    transform: translateY(-10rem);
+    transition: all 1s ease;
+  }
+}
+@media only screen and (max-width: 1028px) {
+  .welcome {
+    width: 50%;
+  }
+
+  .Log-Account {
+    left: 25rem;
+    width: 63%;
+    transition: all 0.25s ease;
+  }
+  .Create-Account {
+    width: 63%;
+    transition: all 0.25s ease;
+  }
+}
+
+@media only screen and (max-width: 781px) {
+  .container {
+    grid-template-rows: 70px 300px 0.01fr 100px 100px 100px 0.01fr;
+  }
+  .navbar {
+    position: relative;
+  }
+  .welcome {
+    width: 20%;
+    font-size: smaller;
+  }
+
+  .Log-Account {
+    left: 22.3rem;
+    width: 63%;
+    transition: all 0.25s ease;
+  }
+  .Create-Account {
+    width: 63%;
+    transition: all 0.25s ease;
+  }
+  .navbar-currency {
+    position: relative;
+    right: -2rem;
+    top: -0.4rem;
+    height: 100%;
+    width: 70%;
+    transition: all 0.5s ease;
+  }
+  .navbar-currency label {
+    font-size: small;
+  }
+  .navbar-currency img {
+    position: relative;
+    width: 35px;
+    top: -0.5rem;
+  }
+  .navbar-currency select {
+    height: 20px;
+    width: 5rem;
+  }
+
+  .container .Current-balance {
+    font-size: 15px;
+  }
+  .container .time-date {
+    font-size: 15px;
+  }
+
+  .account-transactions ul li:nth-child(1) {
+    font-size: 8px;
+  }
+  .account-transactions ul li:nth-child(2) {
+    font-size: 11px;
+  }
+  .account-transactions ul li:nth-child(3) {
+    font-size: 11px;
+  }
+  .account-transactions ul li:nth-child(4) {
+    font-size: 13px;
+  }
+  .account-transactions ul li:nth-child(5) {
+    font-size: 13px;
+  }
+
+  .container .show-portfilio div li span {
+    font-size: 15px;
+  }
+  .container .show-portfilio div li {
+    font-size: 13px;
+  }
+  .container .show-portfilio div li img {
+    width: 22px;
+  }
+  .container .show-portfilio div button {
+    font-size: 15px;
+    position: relative;
+    bottom: -0.3rem;
+  }
+  .container .Current-balance {
+    font-size: 12px;
+  }
+  .container .time-date {
+    font-size: 13px;
+  }
+  .Current-balance .total-balance {
+    font-size: 1.9rem;
+  }
+}
+
+/* For Mobile */
+@media only screen and (max-width: 499px) {
+  body {
+    overflow: visible;
+  }
+
+  /* Navbar */
+  nav {
+    height: 11%;
+    transition: all 1s ease;
+    min-width: 408px;
+  }
+  .navbar .nav-log input {
+    width: 5rem;
+    height: 2rem;
+    font-size: 12px;
+  }
+  .navbar .nav-log button {
+    width: 2rem;
+    height: 2rem;
+  }
+  /* FORM */
+
+  /* CREATE ACCOUNT */
+  .Form {
+    margin-top: 3rem;
+    height: 100%;
+    overflow-y: hidden;
+  }
+  .Form .Create-Account {
+    min-width: 285px;
+    min-height: 500px;
+    width: 75%;
+  }
+  .Form .Create-Account h1 {
+    font-size: 18px;
+  }
+  .Form .Create-Account p {
+    font-size: 13px;
+  }
+  .Form .Create-Account input {
+    width: 14rem;
+    font-size: 15px;
+  }
+
+  .Form .Create-Account img {
+    width: 2rem;
+  }
+  .Form .Create-Account #email {
+    width: 1.8rem;
+  }
+  .Form .Create-Account i {
+    font-size: 12px;
+  }
+  .Form .Create-Account .sign-up,
+  #go-sign-in {
+    width: 8rem;
+    margin: auto;
+    font-size: 15px;
+  }
+
+  /* LOG-IN */
+  .Form .Log-Account {
+    min-width: 285px;
+    min-height: 530px;
+    left: 17.4rem;
+  }
+  .Form .Log-Account h1 {
+    font-size: 18px;
+  }
+
+  .Form .Log-Account .Log-Password label {
+    font-size: 12px;
+    margin-left: 2.5rem;
+  }
+  #security:focus {
+    box-shadow: 0 0 0 0 #fff;
+  }
+  #security {
+    position: absolute;
+    left: -6rem;
+    top: 3rem;
+  }
+  .Form .Log-Account input,
+  .Log-Tel input {
+    width: 14rem;
+    font-size: 15px;
+  }
+  .Log-Account .Correct::after {
+    font-size: 10px;
+  }
+  .Form .Log-Account .choose label {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .Form .Log-Account .choose #currency {
+    width: 3.5rem;
+    font-size: 10px;
+    height: 1.2rem;
+  }
+  .Form .Log-Account .choose #interest {
+    width: 1.8rem;
+    font-size: 10px;
+    height: 1.2rem;
+  }
+
+  .Form .Log-Account img {
+    width: 2rem;
+  }
+  .Form .Log-Account .logo2 img {
+    width: 125px;
+  }
+  .Form .Log-Account #email {
+    width: 1.7rem;
+  }
+  .Form .Log-Account i {
+    font-size: 12px;
+  }
+  .Form .Log-Account .sign-in,
+  #go-sign-up {
+    width: 8rem;
+    margin: auto;
+    font-size: 15px;
+  }
+
+  /* Send-Code  */
+  .Form .Log-Tel .Send-Code input {
+    width: 8rem;
+  }
+  .Form .Log-Tel .Send-Code label {
+    width: 6rem;
+    height: 25px;
+  }
+  #send-code {
+    text-transform: uppercase;
+    font-size: 9px;
+  }
+  .Form .Log-Tel:before {
+    left: 0.7rem;
+  }
+  .Form .Log-Tel:before,
+  .Send-Code:before {
+    font-size: 11px;
+  }
+  .Form .Log-Tel .invalid:after {
+    font-size: 10px;
+    top: -4.5rem;
+    left: -15.5rem;
+  }
+  .Form .Log-Tel .invalid:before {
+    top: -6.8rem;
+  }
+
+  .Form .Log-Tel .valid::after {
+    left: -8rem;
+    font-size: 10px;
+  }
+  .Form .Log-Tel .valid::before {
+    left: 8.2rem;
+    top: -3.8rem;
+  }
+
+  .Form .Log-Tel .tel-number {
+    font-size: 12px;
+  }
+  /* USER ACCOUNT */
+  .navbar-currency {
+    position: relative;
+    width: 88%;
+    top: -1rem;
+    right: -1rem;
+  }
+  .navbar-currency label {
+    font-size: 11px;
+  }
+  .navbar-currency img {
+    position: relative;
+    width: 25px;
+    top: -0.5rem;
+  }
+
+  .container {
+    grid-template-columns: repeat(1, minmax(360px, 450px));
+    grid-template-rows: 55px 290px 0.001fr 90px 90px 90px 0.01fr;
+    grid-gap: 5px;
+    margin: auto;
+    grid-template-areas:
+      " balances "
+      "transferans"
+      "portfilio "
+      "transfer-money"
+      "deposit"
+      "close-account"
+      "button";
+  }
+
+  .container .Current-balance {
+    font-size: 10px;
+  }
+  .container .time-date {
+    font-size: 10px;
+  }
+  .Current-balance .total-balance {
+    font-size: 1.2rem;
+  }
+
+  .account-transactions ul li:nth-child(1) {
+    font-size: 9px;
+    color: black;
+  }
+  .account-transactions ul li:nth-child(2) {
+    font-size: 9px;
+    color: black;
+  }
+  .account-transactions ul li:nth-child(3) {
+    font-size: 9px;
+    color: black;
+  }
+  .account-transactions ul li:nth-child(4) {
+    font-size: 9px;
+    color: black;
+  }
+  .account-transactions ul li:nth-child(5) {
+    font-size: 9px;
+    color: black;
+  }
+
+  .container .show-portfilio div li span {
+    font-size: 12px;
+  }
+  .container .show-portfilio div li {
+    font-size: 12px;
+  }
+  .container .show-portfilio div li img {
+    width: 20px;
+  }
+  .container .show-portfilio div button {
+    font-size: 12px;
+    position: relative;
+    bottom: -0.5rem;
+  }
+
+  .transfer-money {
+    font-size: 12px;
+  }
+  .transfer-money label {
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  .deposit {
+    font-size: 12px;
+  }
+  .deposit label {
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  .close-account {
+    font-size: 12px;
+  }
+  .close-account label {
+    font-size: 10px;
+    font-weight: bolder;
+  }
+
+  .button .Log-Out {
+    width: 8rem;
+    font-size: 15px;
+  }
+  .button h5 {
+    margin-top: 1rem;
+    font-size: 12px;
+  }
+  .button .countdown {
+    font-size: 12px;
+  }
+  .logo {
+    transform: translateY(-10rem);
+    transition: all 1s ease;
+  }
+}

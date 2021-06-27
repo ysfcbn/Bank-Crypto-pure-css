@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Orbitron"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+      integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="img/iota-logo.png" />
+    <title>Bank of Crypto</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+
+    <nav>
+      <div class="navbar">
+        <h2 class="welcome">Log in to get started</h2>
+        <div class="logo">
+          <img src="img/wallet.png" alt="wallet" width="50" />
+        </div>
+        <div class="nav-log">
+          <form>
+            <input class="Log-Full-Name" type="text" placeholder="user" />
+            <input
+              class="Log-Password"
+              type="password"
+              placeholder="Password"
+            />
+            <button><i class="fas fa-long-arrow-alt-right"></i></button>
+          </form>
+        </div>
+        <div class="navbar-currency" style="display: none">
+          <label for="currency-nav">Change Currency</label>
+          <img src="img/iota-logo.png" width="50" alt="logo3" />
+          <select name="currency" id="currency-nav" onchange="changeCurrency()">
+            <option value="Bitcoin">Bitcoin</option>
+            <option value="Etherium">Etherium</option>
+            <option value="Ripple">Ripple</option>
+            <option value="Litecoin">Litecoin</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CREATE ACCOUNT -->
+
+    <section class="Form">
+      <div class="Create-Account">
+        <h1>Create An Account !</h1>
+        <form class="log-In">
+          <p>Fill Form</p>
+
+          <div class="Full-Name">
+            <input
+              id="fullname"
+              type="text"
+              placeholder="FullName"
+              autocomplete="off"
+              onchange="checkPasswordMatch()"
+            />
+            <img style="left: 23px" src="img/user.png" alt="user" />
+          </div>
+
+          <div class="password">
+            <input
+              type="password"
+              id="pass1"
+              placeholder="Password"
+              onchange="checkPasswordMatch()"
+            />
+            <img src="img/padlock.png" alt="padlock" />
+            <i style="top: 0.7rem; right: 2rem" class="fas fa-eye eye"></i>
+            <i
+              style="top: 0.7rem; right: 2rem"
+              class="fas fa-eye-slash closed-eye hidden"
+            ></i>
+          </div>
+
+          <div class="confirm-password">
+            <input
+              type="password"
+              id="pass2"
+              placeholder="Confirm Password"
+              onchange="checkPasswordMatch()"
+            />
+            <img src="img/padlock.png" alt="padlock" />
+          </div>
+
+          <div class="e-mail">
+            <input
+              class="E-mail"
+              type="email"
+              placeholder="E-mail"
+              autocomplete="off"
+            />
+            <img id="email" src="img/email.png" alt="mail" />
+          </div>
+          <!-- yanlızca 0-9 arası rakamları kabul et
+          <!-- oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" -->
+          <div class="tel">
+            <input
+              id="phone"
+              class="Gsm"
+              type="tel"
+              placeholder="5*********"
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              maxlength="10"
+              autocomplete="off"
+              ondrop="return false;"
+              onchange="checkPasswordMatch()"
+            />
+            <img src="img/mobile-phone.png" alt="phone" />
+            <span></span>
+          </div>
+
+          <div class="Sign-Up">
+            <button type="" class="sign-up">Sign Up</button>
+          </div>
+        </form>
+        <p>
+          Already have an account ?
+          <button id="go-sign-in">&nbsp Sign In</button>
+        </p>
+      </div>
+
+      <!-- LOG-IN -->
+
+      <div class="Log-Account">
+        <h2 class="message"></h2>
+        <h1>LOG IN</h1>
+        <form class="log-In">
+          <div class="Log-Full-Name">
+            <input type="text" placeholder="Full Name" />
+            <img style="top: 11px; left: 12px" src="img/user.png" alt="user" />
+          </div>
+
+          <div class="Log-Password">
+            <input type="password" placeholder="Password" />
+            <img id="locked-padlock" src="img/padlock.png" alt="password" />
+            <img
+              class="hidden"
+              id="open-padlock"
+              src="img/open-padlock.png"
+              alt="correct pass"
+            />
+            <i class="fas fa-eye eye"></i>
+            <i class="fas fa-eye-slash closed-eye hidden"></i>
+            <label for="security"> Send Me Code </label>
+            <input type="checkbox" id="security" />
+          </div>
+
+          <div class="Log-Tel hidden">
+            <input
+              id="phone2"
+              class="Gsm"
+              type="tel"
+              placeholder="Gsm"
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              maxlength="10"
+              autocomplete="off"
+              ondrop="return false;"
+              onchange="checkPasswordMatch()"
+            />
+            <img class="after-wait" src="img/mobile-phone.png" alt="phone" />
+            <span class="tel-info"></span>
+            <div class="Send-Code">
+              <input
+                id="Code"
+                type="text"
+                placeholder="******"
+                maxlength="6"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                onchange="checkPasswordMatch()"
+              />
+              <label id="send-code" for="Code">Send Code</label>
+            </div>
+            <span class="tel-number"></span>
+            <h2 class="time hidden"></h2>
+          </div>
+          <div class="choose">
+            <label for="currency">Currency:</label>
+            <select name="currency" id="currency">
+              <option value="Bitcoin">Bitcoin</option>
+              <option value="Etherium">Etherium</option>
+              <option value="Ripple">Ripple</option>
+              <option value="Litecoin">Litecoin</option>
+            </select>
+            <label for="interest">Interest:</label>
+            <select name="interest" id="interest">
+              <option value="1">1</option>
+              <option value="1.2">1.2</option>
+              <option value="1.3">1.3</option>
+              <option value="1.5">1.5</option>
+            </select>
+          </div>
+
+          <div class="Sign-In">
+            <button class="sign-in">Sign In</button>
+          </div>
+        </form>
+
+        <div class="logo2">
+          <img src="img/logo.png" alt="logo" width="200" />
+        </div>
+
+        <p>
+          Don't have an account ?
+          <button id="go-sign-up" class="singup">&nbsp Sign Up</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- USER ACCOUNT    -->
+
+    <section class="User-Account" style="display: none">
+      <div class="container">      
+        <div class="Current-balance">
+            <div class="time-date">
+              <h3>Current Balance</h3>
+              <h4 class="current-date">DATE</h4>
+              <h4 class="current-time">TİME</h4>
+            </div>
+            <div>
+              <h3>User ID : # <span class="uid"></span></h3>
+              <div>
+                <img class="coin" src="img/Bitcoin.png" alt="coin" />
+                <div>
+                  <h2 class="total-balance">0.00</h2>
+                  <h2 class="inc-dec-value hidden"></h2>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="transferans">
+          <div class="account-transactions">
+            <!-- <ul>
+              <li>withdrawal to-name</li>
+              <li>date</li>
+              <li>target ID</li>
+              <li>time</li>
+              <li>amount-currency</li>
+            </ul> -->
+            <!-- <ul>
+              <li>name-log-ın-log-out</li>
+              <li>date-day-month-year</li>
+              <li>time</li>
+              <li>currency</li>
+            </ul> -->
+            <!-- <ul>
+              <li>deposit</li>
+              <li>day</li>
+              <li>time</li>
+              <li>amount-currency</li>
+            </ul> -->
+            <!-- <ul>
+              <li>deposit from-name</li>
+              <li>day</li>
+              <li>target ID</li>
+              <li>time</li>
+              <li>amount-currency</li>
+            </ul> -->
+          </div>
+        </div>
+
+        <div class="show-portfilio">
+          <div>
+            <ul>
+              <li>
+                IN<img class="coin" src="img/Litecoin.png" alt="coin" /><span
+                  >0.00</span
+                >
+              </li>
+
+              <li>
+                OUT<img class="coin" src="img/Ripple.png" alt="coin" /><span
+                  >0.00</span
+                >
+              </li>
+
+              <li>
+                INTEREST<img
+                  class="coin"
+                  src="img/Bitcoin.png"
+                  alt="coin"
+                /><span>0.00</span>
+              </li>
+
+              <li>
+                <button class="sort"><i class="fas fa-sort"></i> SORT</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="transfer-money">
+          <div class="content1">
+            <h3>Transfer <span>Crypto</span></h3>
+            <div>
+              <label for="username">Transfer To</label>
+              <input type="text" id="username" />
+              <label for="transfer-amount">Amount</label>
+              <input type="number" id="transfer-amount" />
+              <button><i class="fas fa-long-arrow-alt-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="deposit">
+          <div class="content1">
+            <h3>Deposit</h3>
+            <div>
+              <label for="deposit-amount">Amount</label>
+              <input type="number" id="deposit-amount" />
+              <button><i class="fas fa-long-arrow-alt-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="close-account">
+          <div class="content1">
+            <h3>Close Account</h3>
+            <div>
+              <label for="conf-username">Confirm User</label>
+              <input type="text" id="conf-username" />
+              <label for="conf-pass">Confirm Pass</label>
+              <input type="password" id="conf-pass" />
+              <button><i class="fas fa-long-arrow-alt-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="button">
+          <div>
+            <button class="Log-Out">Log Out</button>
+          </div>
+          <h5>Will be Log Out In <span class="countdown">TİME</span></h5>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <script>
+      src = "https://kit.fontawesome.com/d5f92051e8.js";
+      crossorigin = "anonymous";
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
+<div></div>
