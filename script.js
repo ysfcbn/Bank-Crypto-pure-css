@@ -1104,7 +1104,7 @@ sendCodeBtn.addEventListener("click", function (e) {
 
     // TİMER
 
-    let time = 5;
+    let time = 10;
     if (clicker < 4) {
       sendCodeBtn.style.pointerEvents = "none";
       let interval = setInterval(updateCountdown, 1000);

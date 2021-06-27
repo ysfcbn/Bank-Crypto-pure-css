@@ -1641,7 +1641,7 @@ label {
   }
 
   .container {
-    grid-template-columns: repeat(1, minmax(360px, 450px));
+    grid-template-columns: repeat(1, minmax(320px, 450px));
     grid-template-rows: 55px 290px 0.001fr 90px 90px 90px 0.01fr;
     grid-gap: 5px;
     margin: auto;
@@ -1654,7 +1654,9 @@ label {
       "close-account"
       "button";
   }
-
+  .container {
+    margin: 1rem 3rem;
+  }
   .container .Current-balance {
     font-size: 10px;
   }
