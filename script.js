@@ -203,11 +203,16 @@ const autoLogoutFunc = function () {
   function logoutCountdown() {
     let min = Math.floor(time / 60);
     let sec = Math.floor(time % 60);
-    logOutCountdown.style.color = "rgb(71, 70, 70)";
+    if (darkMode.checked) {
+      logOutCountdown.style.color = "#ffffff";
+    } else {
+      logOutCountdown.style.color = "rgb(71, 70, 70)";
+    }
     logOutCountdown.innerHTML = `${min < 10 ? "0" + min : min}:${
       sec < 10 ? "0" + sec : sec
     }`;
     time--;
+
     if (min === 0 && sec <= 10) {
       logOutCountdown.style.color = "red";
       logOutCountdown.style.animation =
@@ -385,6 +390,38 @@ const logoutfunc = function () {
     currentUser.shift();
   }, 1500); //wait 1.5 seconds
 };
+
+// Dark Mode
+const moon = document.getElementById("moon");
+const sun = document.getElementById("sun");
+const codeLabel = document.querySelector(".Log-Password label");
+const btn = document.querySelector(".button h5");
+const darkMode = document.getElementById("dark-mode");
+const mode = document.querySelector(".box-mode");
+mode.addEventListener("click", function () {
+  if (darkMode.checked) {
+    document.querySelector(".body").classList.add("dark");
+    sort.style.color = "#ffffff";
+    btn.style.color = "#ffffff";
+    createAccount.style.backgroundColor = "#5d5a5a";
+    logAccount.style.backgroundColor = "#5d5a5a";
+    codeLabel.style.color = "#ffffff";
+    logOutCountdown.style.color = "#ffffff";
+    sun.classList.remove("hidden");
+    moon.classList.add("hidden");
+  } else {
+    document.querySelector(".body").classList.remove("dark");
+    sort.style.color = "inherit";
+    createAccount.style.backgroundColor = "#ffffff";
+    logAccount.style.backgroundColor = "#ffffff";
+    logOutCountdown.style.color = "rgb(71,70,70)";
+
+    btn.style.color = "rgb(70,70,70)";
+    codeLabel.style.color = "#555";
+    moon.classList.remove("hidden");
+    sun.classList.add("hidden");
+  }
+});
 
 // <-- FORM SECTION -->
 //Password Matchup

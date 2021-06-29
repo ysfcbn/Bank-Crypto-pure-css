@@ -146,6 +146,35 @@ label {
   margin: -1rem 1rem;
 }
 
+/* Dark Mode */
+.dark {
+  background: #222;
+  color: #fff;
+}
+
+#dark-mode {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container-mode {
+  position: relative;
+  width: 100vw;
+  height: 2rem;
+}
+.box-mode {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  right: 0rem;
+  background: #333;
+  width: 2.5rem;
+  font-size: 25px;
+}
 /* Create Account */
 
 .Create-Account {
@@ -1479,6 +1508,15 @@ label {
   .navbar .nav-log button {
     width: 2rem;
     height: 2rem;
+  }
+  /* Dark Mode */
+  .container-mode {
+    display: flex;
+    justify-content: center;
+  }
+  .box-mode {
+    display: flex;
+    position: relative;
   }
   /* FORM */
 

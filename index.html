@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body>
+  <body class="body">
     <!-- NAVBAR -->
 
     <nav>
@@ -58,6 +58,17 @@
         </div>
       </div>
     </nav>
+
+    <!-- Dark Mode -->
+    <div class="container-mode">
+      <div class="box-mode">
+        <label for="dark-mode">
+          <input type="checkbox" id="dark-mode" />
+          <i class="fas fa-sun hidden" id="sun"></i>
+          <i class="fas fa-moon" id="moon"></i>
+        </label>
+      </div>
+    </div>
 
     <!-- CREATE ACCOUNT -->
 
@@ -230,23 +241,23 @@
     <!-- USER ACCOUNT    -->
 
     <section class="User-Account" style="display: none">
-      <div class="container">      
+      <div class="container">
         <div class="Current-balance">
-            <div class="time-date">
-              <h3>Current Balance</h3>
-              <h4 class="current-date">DATE</h4>
-              <h4 class="current-time">TİME</h4>
-            </div>
+          <div class="time-date">
+            <h3>Current Balance</h3>
+            <h4 class="current-date">DATE</h4>
+            <h4 class="current-time">TİME</h4>
+          </div>
+          <div>
+            <h3>User ID : # <span class="uid"></span></h3>
             <div>
-              <h3>User ID : # <span class="uid"></span></h3>
+              <img class="coin" src="img/Bitcoin.png" alt="coin" />
               <div>
-                <img class="coin" src="img/Bitcoin.png" alt="coin" />
-                <div>
-                  <h2 class="total-balance">0.00</h2>
-                  <h2 class="inc-dec-value hidden"></h2>
-                </div>
+                <h2 class="total-balance">0.00</h2>
+                <h2 class="inc-dec-value hidden"></h2>
               </div>
             </div>
+          </div>
         </div>
 
         <div class="transferans">
