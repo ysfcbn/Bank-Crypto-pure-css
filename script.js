@@ -204,7 +204,7 @@ const autoLogoutFunc = function () {
     let min = Math.floor(time / 60);
     let sec = Math.floor(time % 60);
     if (darkMode.checked) {
-      logOutCountdown.style.color = "#ffffff";
+      logOutCountdown.style.color = "#e5e5e7";
     } else {
       logOutCountdown.style.color = "rgb(71, 70, 70)";
     }
@@ -392,6 +392,7 @@ const logoutfunc = function () {
 };
 
 // Dark Mode
+const usrID = document.querySelector(".Current-balance div:nth-child(2) h3");
 const moon = document.getElementById("moon");
 const sun = document.getElementById("sun");
 const codeLabel = document.querySelector(".Log-Password label");
@@ -401,23 +402,35 @@ const mode = document.querySelector(".box-mode");
 mode.addEventListener("click", function () {
   if (darkMode.checked) {
     document.querySelector(".body").classList.add("dark");
-    sort.style.color = "#ffffff";
-    btn.style.color = "#ffffff";
+    usrID.style.color = "#e5e5e7";
+    sort.style.color = "#e5e5e7";
+    btn.style.color = "#e5e5e7";
     createAccount.style.backgroundColor = "#5d5a5a";
     logAccount.style.backgroundColor = "#5d5a5a";
-    codeLabel.style.color = "#ffffff";
-    logOutCountdown.style.color = "#ffffff";
+    codeLabel.style.color = "#e5e5e7";
+    logOutCountdown.style.color = "#e5e5e7";
+    tranfers.style.backgroundColor = "transparent";
+    let feedbackDark = [...transactions.children];
+    feedbackDark.forEach((val) =>
+      [...val.children].forEach((v) => (v.style.color = "#fff"))
+    );
     sun.classList.remove("hidden");
     moon.classList.add("hidden");
   } else {
     document.querySelector(".body").classList.remove("dark");
+    usrID.style.color = "rgba(139, 139, 139, 0.7)";
     sort.style.color = "inherit";
-    createAccount.style.backgroundColor = "#ffffff";
-    logAccount.style.backgroundColor = "#ffffff";
+    createAccount.style.backgroundColor = "#fff";
+    logAccount.style.backgroundColor = "#fff";
     logOutCountdown.style.color = "rgb(71,70,70)";
-
     btn.style.color = "rgb(70,70,70)";
     codeLabel.style.color = "#555";
+    tranfers.style.backgroundColor = "#faf8f8";
+    let feedbackDark = [...transactions.children];
+    feedbackDark.forEach((ul) =>
+      [...ul.children].forEach((li, i) => (li.style.color = "#635b5bb3"))
+    );
+    feedbackDark.forEach((v, i) => (v.children[0].style.color = "#fff"));
     moon.classList.remove("hidden");
     sun.classList.add("hidden");
   }
@@ -874,6 +887,13 @@ navLogBtn.addEventListener("click", function (a) {
         moneyInterest.textContent = new Intl.NumberFormat(
           navigator.language
         ).format(result);
+        // Dark Mode
+        if (darkMode.checked) {
+          let feedbackDark = [...transactions.children];
+          feedbackDark.forEach((val) =>
+            [...val.children].forEach((v) => (v.style.color = "#fff"))
+          );
+        }
       }
       return;
     }
@@ -1077,6 +1097,13 @@ signIn.addEventListener("click", function (e) {
         moneyInterest.textContent = new Intl.NumberFormat(
           navigator.language
         ).format(result);
+        // Dark Mode
+        if (darkMode.checked) {
+          let feedbackDark = [...transactions.children];
+          feedbackDark.forEach((val) =>
+            [...val.children].forEach((v) => (v.style.color = "#fff"))
+          );
+        }
       }
       return;
     }
@@ -1435,6 +1462,13 @@ depositBtn.addEventListener("click", function () {
         transactions.appendChild(elements);
       });
     }
+    // Dark Mode
+    if (darkMode.checked) {
+      let feedbackDark = [...transactions.children];
+      feedbackDark.forEach((val) =>
+        [...val.children].forEach((v) => (v.style.color = "#fff"))
+      );
+    }
     countSortClick = 0;
     // Total Balance
     depositBtn.disabled = true;
@@ -1785,6 +1819,13 @@ Current IDs => ${[...countArr]}`
         );
         incDecValue.classList.remove("hidden");
       }, 300);
+    }
+    // Dark Mode
+    if (darkMode.checked) {
+      let feedbackDark = [...transactions.children];
+      feedbackDark.forEach((val) =>
+        [...val.children].forEach((v) => (v.style.color = "#fff"))
+      );
     }
   }
 });

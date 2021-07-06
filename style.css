@@ -149,7 +149,7 @@ label {
 /* Dark Mode */
 .dark {
   background: #222;
-  color: #fff;
+  color: #e5e5e7;
 }
 
 #dark-mode {
@@ -1679,7 +1679,7 @@ label {
   }
 
   .container {
-    grid-template-columns: repeat(1, minmax(320px, 450px));
+    grid-template-columns: repeat(1, minmax(350px, 450px));
     grid-template-rows: 55px 290px 0.001fr 90px 90px 90px 0.01fr;
     grid-gap: 5px;
     margin: auto;
@@ -1706,31 +1706,33 @@ label {
   }
 
   .account-transactions ul li:nth-child(1) {
-    font-size: 9px;
+    font-size: 6px;
     color: black;
+    width: 25%;
   }
   .account-transactions ul li:nth-child(2) {
-    font-size: 9px;
+    font-size: 8px;
     color: black;
+    margin: 0 2px;
   }
   .account-transactions ul li:nth-child(3) {
-    font-size: 9px;
+    font-size: 8px;
     color: black;
   }
   .account-transactions ul li:nth-child(4) {
-    font-size: 9px;
+    font-size: 8px;
     color: black;
   }
   .account-transactions ul li:nth-child(5) {
-    font-size: 9px;
+    font-size: 8px;
     color: black;
   }
 
   .container .show-portfilio div li span {
-    font-size: 12px;
+    font-size: 10px;
   }
   .container .show-portfilio div li {
-    font-size: 12px;
+    font-size: 10px;
   }
   .container .show-portfilio div li img {
     width: 20px;
