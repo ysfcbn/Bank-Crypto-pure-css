@@ -1,6 +1,10 @@
 # Bank-Crypto-pure-css-responsive
 My Second Project
 
+-- For run correctly --
+
+Click to site settings and allow the "Insecure content"
+
 -- About Project --
 
 1- You can create as many accounts as you want. and you can check this all accounts movements and you can review all account activities of these accounts when typed "allUser" on the console screen, and you can watch all the process done instantly from the console.
