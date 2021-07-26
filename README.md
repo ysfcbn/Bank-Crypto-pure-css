@@ -19,7 +19,7 @@ here is the link: https://crypto-bank-app.netlify.app/
 
 5- If there are more than one users with the same name has been created and if one of them user send to crypto curency to other it will happen instantly, because they have diffent userIDs if there are more than two users with the same name and if one of them user send to crypto curency to other it will happen like fourth section alert, without current userID on the alert screen!
 
-6- If you want to close the current account, just enter the correct fullname and password, when you confirm the account deletion, it will log out of the current account and delete the current account. and you can see deleted accounts by when typed "deletedUsersInfo" on the console screen, it keeps all account activity and user information before deletion
+6- If you want to close the current account, just enter the correct fullname and password, when you confirm the account deletion, it will log out of the current account and delete the current account. and you can see deleted accounts by when typed "allDeletedUsersInfo" on the console screen, it keeps all account activity and user information before deletion
 
 7- If you want to close other accounts, you can do it and when you delete another account current user have not log out (there is no way in the real world for this anyway :) )
 
