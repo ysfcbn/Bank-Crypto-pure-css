@@ -1,7 +1,7 @@
 "use strict";
 
 // AllUsers Data Object
-const userSignUp = {
+let userSignUp = {
   fullname: [],
   pass: [],
   confirmPass: [],
@@ -24,8 +24,9 @@ const accountİnfo = {
   currencyWithdrawals: [],
   currentUserMovementsFeedback: [],
 };
+
 // To transfer account movements to allusers object
-const allUsersAccountMov = new Array();
+let allUsersAccountMov = new Array();
 
 // NAVBAR INIT
 const currentAccount = document.querySelector(".welcome");
@@ -100,7 +101,7 @@ const confirmPassBlank = document.querySelector(".confirm-password");
 const telBlank = document.querySelector(".tel");
 const choose = document.querySelector(".choose");
 let valueIndexNumb;
-const allUser = new Array();
+let allUser = new Array();
 const currentUser = [];
 const sendCodeBtn = document.getElementById("send-code");
 const sendCodeInput = document.getElementById("Code");
@@ -140,9 +141,106 @@ let resultDeposit = new Array();
 const logOutCountdown = document.querySelector(".countdown");
 let interval2;
 let deletedUserInfo = [];
-const allDeletedUsersInfo = [];
+let allDeletedUsersInfo = [];
 let countSortClick = 0;
 let sortArr = new Array();
+
+// Set Local Stroge Function
+const setLocalStrogeFunc = function () {
+  localStorage.setItem("All Singup Users", JSON.stringify(userSignUp));
+  localStorage.setItem("All Account Mov", JSON.stringify(allUsersAccountMov));
+  localStorage.setItem("All User", JSON.stringify(allUser));
+  allUsersAccountMov.forEach((user, i) =>
+    localStorage.setItem(
+      `${i}`,
+      JSON.stringify(user, ["currentUserMovementsFeedback"])
+    )
+  );
+};
+
+//Get Currentuser movement feedback storage
+const currentuserStorage = function () {
+  const dataCurrentUser = JSON.parse(
+    localStorage.getItem(`${allUser[currentUser[0].userID]}`)
+  );
+  allUser[currentUser[0].userID].currentUserMovementsFeedback = dataCurrentUser;
+};
+
+//Get Local Stroge Function
+const getLocalStroge = function () {
+  const dataAllSingupUser = JSON.parse(
+    localStorage.getItem("All Singup Users")
+  );
+  const dataAllUser = JSON.parse(localStorage.getItem("All User"));
+
+  const dataAllUserAccountMov = JSON.parse(
+    localStorage.getItem("All Account Mov")
+  );
+  const dataAllDeletedUser = JSON.parse(
+    localStorage.getItem("All Deleted Users")
+  );
+
+  if (!dataAllSingupUser) return;
+  userSignUp = dataAllSingupUser;
+  console.log(userSignUp);
+
+  if (!dataAllUserAccountMov) return;
+  allUsersAccountMov = dataAllUserAccountMov;
+  console.log(allUsersAccountMov);
+
+  if (!dataAllUser) return;
+  allUser = dataAllUser;
+  console.log(dataAllUser);
+
+  if (!dataAllDeletedUser) return;
+  allDeletedUsersInfo = dataAllDeletedUser;
+  console.log(allDeletedUsersInfo);
+};
+
+// deneme
+// const funcFeedback = function () {
+//   if (
+//     allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback != []
+//   ) {
+//     allUsersAccountMov.forEach(
+//       (user) => (user.currentUserMovementsFeedback = [])
+//     );
+//     allUsersAccountMov.forEach((user) =>
+//       user.currentUserMovementsFeedback.forEach((ul) =>
+//         user.storedUserFeedback.push(ul)
+//       )
+//     );
+//   }
+// };
+
+// Date Formatter
+const formatMovementDate = function (date, locale) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed < 7) return `${daysPassed} days ago`;
+  if (daysPassed >= 7) {
+    const options = {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    };
+    `${new Date(new Date().getTime() - daysPassed * 24 * 60 * 60 * 1000)}`;
+    return new Intl.DateTimeFormat(locale, options).format(date);
+  }
+};
+
+// Create Transictions Feedback
+const createListItem = function (text) {
+  const li = document.createElement("li");
+  li.textContent = text;
+  return li;
+};
 
 // Clear Send Code Button
 const clearSendCodeInput = function () {
@@ -238,8 +336,10 @@ const saveBalance = function (selectedCurrency) {
 const movFeedbackFunc = function () {
   if (transactions.childElementCount >= 0) {
     allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback = [];
-    allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback.push(
-      ...transactions.children
+    [...transactions.children].forEach(ul =>
+      allUsersAccountMov[
+        currentUser[0].userID
+      ].currentUserMovementsFeedback.push(ul.outerHTML)
     );
   }
 };
@@ -255,17 +355,11 @@ const LogInFunct = function () {
   if (
     allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback != []
   ) {
-    allUsersAccountMov[
-      currentUser[0].userID
-    ].currentUserMovementsFeedback.forEach(function (ul) {
-      transactions.appendChild(ul);
-    });
+    transactions.innerHTML =
+      allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback;
+    transactions.innerHTML = transactions.innerHTML.replaceAll(">,", ">");
   }
-  function createListItem(text) {
-    const li = document.createElement("li");
-    li.textContent = text;
-    return li;
-  }
+
   const newUl = document.createElement("ul");
   const newLi = [
     createListItem(`${currentUser[0].fullname}  LOGIN`),
@@ -290,11 +384,14 @@ const LogInFunct = function () {
       allUsersAccountMov[currentUser[0].userID][`${selectedCurrency}`]
     }`
   );
+
+  //setLocalStroge();
 };
 
 // LOG-OUT
 const logoutfunc = function () {
   const dateLogOut = new Date();
+
   console.log(
     `User "${currentUser[0].fullname}", UserID: #${
       currentUser[0].userID
@@ -302,11 +399,7 @@ const logoutfunc = function () {
   );
   //LOG-OUT FeedBacks
   const dateLogout = new Date();
-  function createListItem(text) {
-    const li = document.createElement("li");
-    li.textContent = text;
-    return li;
-  }
+
   const newUl = document.createElement("ul");
   const newLi = [
     createListItem(`${currentUser[0].fullname}  LOGOUT`),
@@ -339,7 +432,7 @@ const logoutfunc = function () {
   // Get Movements feedback
   if (transactions.childElementCount >= 0) {
     allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback.push(
-      transactions.lastElementChild
+      transactions.lastElementChild.outerHTML
     );
   }
   // Reset Information
@@ -351,9 +444,11 @@ const logoutfunc = function () {
   logOutCountdown.innerHTML = "";
   clearInterval(interval2);
   countArr = [];
+
   // Navbar Inputs
   navCurrency.style.animation = "opacity-scale 1s ease";
   navLog.style.animation = "navlog-reverse 0.75s ease forwards";
+
   // Launching Section2
   section1.classList.remove("hidden");
   section1.style.animation = "scale-reverse 1.25s ease";
@@ -382,13 +477,20 @@ const logoutfunc = function () {
     closeAccountPass.value = "";
     closeAccountUser.value = "";
     logOutCountdown.style.color = "rgb(71, 70, 70)";
+
     // Clear Account-transactions
     transactions.innerHTML = "";
+
     // Clear cache memory
     sortArr = [];
     countSortClick = 0;
     currentUser.shift();
   }, 1500); //wait 1.5 seconds
+
+  // For readable localStorage
+
+  // Set Local Stroge
+  setLocalStrogeFunc();
 };
 
 // Dark Mode
@@ -411,8 +513,8 @@ mode.addEventListener("click", function () {
     logOutCountdown.style.color = "#e5e5e7";
     tranfers.style.backgroundColor = "transparent";
     let feedbackDark = [...transactions.children];
-    feedbackDark.forEach((val) =>
-      [...val.children].forEach((v) => (v.style.color = "#fff"))
+    feedbackDark.forEach(val =>
+      [...val.children].forEach(v => (v.style.color = "#fff"))
     );
     sun.classList.remove("hidden");
     moon.classList.add("hidden");
@@ -427,7 +529,7 @@ mode.addEventListener("click", function () {
     codeLabel.style.color = "#555";
     tranfers.style.backgroundColor = "#faf8f8";
     let feedbackDark = [...transactions.children];
-    feedbackDark.forEach((ul) =>
+    feedbackDark.forEach(ul =>
       [...ul.children].forEach((li, i) => (li.style.color = "#635b5bb3"))
     );
     feedbackDark.forEach((v, i) => (v.children[0].style.color = "#fff"));
@@ -667,7 +769,6 @@ signUp.addEventListener("click", function (e) {
     console.log(allUser);
 
     const signUpUsersAccount = JSON.parse(JSON.stringify(accountİnfo));
-    signUpUsers;
     allUsersAccountMov.push(signUpUsersAccount);
     console.log(allUsersAccountMov);
   }
@@ -728,18 +829,18 @@ navLogBtn.addEventListener("click", function (a) {
     console.log(
       `There is/are "${countArr.length}" Users With "${navLogInputs[0].value}" Fullnamed`
     );
-    for (const i of valueIndexNumb) {
-      userSignUp.data(
-        i,
-        userSignUp.fullname[i],
-        userSignUp.pass[i],
-        userSignUp.email[i],
-        userSignUp.gsm[i]
-      );
-    }
-    console.log(
-      `Index numbers of user "${navLogInputs[0].value}": [${valueIndexNumb}]`
-    );
+    // for (const i of valueIndexNumb) {
+    //   userSignUp.data(
+    //     i,
+    //     userSignUp.fullname[i],
+    //     userSignUp.pass[i],
+    //     userSignUp.email[i],
+    //     userSignUp.gsm[i]
+    //   );
+    // }
+    // console.log(
+    //   `Index numbers of user "${navLogInputs[0].value}": [${valueIndexNumb}]`
+    // );
   }
   countArr = [];
 
@@ -822,54 +923,13 @@ navLogBtn.addEventListener("click", function (a) {
         currentUser[0].pass === allUser[currentUser[0].userID].pass
       ) {
         // LOG IN Feedback
-        const LogInFunct = function () {
-          const dateLogIn = new Date();
-          if (
-            allUsersAccountMov[currentUser[0].userID]
-              .currentUserMovementsFeedback != []
-          ) {
-            allUsersAccountMov[
-              currentUser[0].userID
-            ].currentUserMovementsFeedback.forEach(function (ul) {
-              transactions.appendChild(ul);
-            });
-          }
-          function createListItem(text) {
-            const li = document.createElement("li");
-            li.textContent = text;
-            return li;
-          }
-          const newUl = document.createElement("ul");
-          const newLi = [
-            createListItem(`${currentUser[0].fullname}  LOGIN`),
-            createListItem(`${dateLogIn.toDateString()}`),
-            createListItem(
-              `${String(dateLogIn.getHours()).padStart(2, "0")} : ${String(
-                dateLogIn.getMinutes()
-              ).padStart(2, "0")} : ${String(dateLogIn.getSeconds()).padStart(
-                2,
-                "0"
-              )} `
-            ),
-            createListItem(`${selectedCurrency}`),
-          ];
-          newLi.forEach(function (li) {
-            transactions.appendChild(newUl).appendChild(li);
-          });
-          newUl.style.backgroundColor = "#5AC278";
-          newUl.style.height = "3rem";
-          newUl.style.borderRadius = "20px 20px";
-          newUl.firstChild.style.letterSpacing = "5px";
-          console.log(`User ID => ${currentUser[0].userID}`);
-          console.log(
-            `${selectedCurrency} => ${
-              allUsersAccountMov[currentUser[0].userID][`${selectedCurrency}`]
-            }`
-          );
-        };
         LogInFunct();
+
         // Get Movements feedback
         movFeedbackFunc();
+
+        // Get cuurentUser storage
+        currentuserStorage();
         balance =
           allUsersAccountMov[currentUser[0].userID][`${selectedCurrency}`];
         totalBalance.textContent = new Intl.NumberFormat(
@@ -887,11 +947,14 @@ navLogBtn.addEventListener("click", function (a) {
         moneyInterest.textContent = new Intl.NumberFormat(
           navigator.language
         ).format(result);
+
+        //setLocalStroge();
+        setLocalStrogeFunc();
         // Dark Mode
         if (darkMode.checked) {
           let feedbackDark = [...transactions.children];
-          feedbackDark.forEach((val) =>
-            [...val.children].forEach((v) => (v.style.color = "#fff"))
+          feedbackDark.forEach(val =>
+            [...val.children].forEach(v => (v.style.color = "#fff"))
           );
         }
       }
@@ -967,15 +1030,15 @@ signIn.addEventListener("click", function (e) {
     console.log(
       `There is/are "${countArr.length}" Users With "${logInputs[0].value}" Fullnamed`
     );
-    for (const i of valueIndexNumb) {
-      userSignUp.data(
-        i,
-        userSignUp.fullname[i],
-        userSignUp.pass[i],
-        userSignUp.email[i],
-        userSignUp.gsm[i]
-      );
-    }
+    // for (const i of valueIndexNumb) {
+    //   userSignUp.data(
+    //     i,
+    //     userSignUp.fullname[i],
+    //     userSignUp.pass[i],
+    //     userSignUp.email[i],
+    //     userSignUp.gsm[i]
+    //   );
+    // }
     console.log(
       `Index numbers of user "${logInputs[0].value}": [${valueIndexNumb}]`
     );
@@ -1071,6 +1134,8 @@ signIn.addEventListener("click", function (e) {
       // For Changeble Currency affter Log In!
       changeCurrency();
 
+      // setLocalStroge();
+      setLocalStrogeFunc();
       // when Users Logging Again
       if (
         currentUser[0].fullname === allUser[currentUser[0].userID].fullname &&
@@ -1097,11 +1162,12 @@ signIn.addEventListener("click", function (e) {
         moneyInterest.textContent = new Intl.NumberFormat(
           navigator.language
         ).format(result);
+
         // Dark Mode
         if (darkMode.checked) {
           let feedbackDark = [...transactions.children];
-          feedbackDark.forEach((val) =>
-            [...val.children].forEach((v) => (v.style.color = "#fff"))
+          feedbackDark.forEach(val =>
+            [...val.children].forEach(v => (v.style.color = "#fff"))
           );
         }
       }
@@ -1141,8 +1207,8 @@ signIn.addEventListener("click", function (e) {
     }
   }
 });
-// Security section => SEND CODE to correct users gsm
 
+// Security section => SEND CODE to correct users gsm
 let clicker = 0;
 sendCodeInput.disabled = true;
 logTelInputs[0].value = "";
@@ -1398,16 +1464,12 @@ depositBtn.addEventListener("click", function () {
     }
     sortArr = [];
     const dateDeposit = new Date();
-    // Create Transictions Feedback
-    function createListItem(text) {
-      const li = document.createElement("li");
-      li.textContent = text;
-      return li;
-    }
+
+    // Create Transiction Feedback elements
     const newUl = document.createElement("ul");
     const newLi = [
       createListItem(`${click}- DEPOSİT`),
-      createListItem(`Today`),
+      createListItem(`${formatMovementDate(dateDeposit, navigator.language)}`),
       createListItem(
         `${String(dateDeposit.getHours()).padStart(2, "0")} : ${String(
           dateDeposit.getMinutes()
@@ -1448,27 +1510,31 @@ depositBtn.addEventListener("click", function () {
         currentUser[0].userID
       }, Date: ${dateDeposit.toLocaleString()}`
     );
+
     // Get Movements feedback
     allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback.push(
-      transactions.lastElementChild
+      transactions.lastElementChild.outerHTML
     );
-
+    // setLocalStroge();
+    setLocalStrogeFunc();
     if (transactions.childElementCount >= 0 && countSortClick >= 1) {
       allUser[
         currentUser[0].userID
       ].accountMovements.currentUserMovementsFeedback.forEach(function (
         elements
       ) {
-        transactions.appendChild(elements);
+        transactions.innerHTML = elements;
       });
     }
+
     // Dark Mode
     if (darkMode.checked) {
       let feedbackDark = [...transactions.children];
-      feedbackDark.forEach((val) =>
-        [...val.children].forEach((v) => (v.style.color = "#fff"))
+      feedbackDark.forEach(val =>
+        [...val.children].forEach(v => (v.style.color = "#fff"))
       );
     }
+
     countSortClick = 0;
     // Total Balance
     depositBtn.disabled = true;
@@ -1538,6 +1604,7 @@ transferMoneyBtn.addEventListener("click", function () {
       alert("You do not have enough funds to transfer this amount");
       return;
     }
+
     let uid;
     const dateTransfer = new Date();
     countArr = [];
@@ -1615,15 +1682,11 @@ Current IDs => ${[...countArr]}`
       // transfer balance to selected user account. mov.
       allUser[answer1].accountMovements = allUsersAccountMov[answer1];
 
-      function createListItem(text) {
-        const li = document.createElement("li");
-        li.textContent = text;
-        return li;
-      }
+      // Create Transiction Feedback elements
       const newUl = document.createElement("ul");
       const newLi = [
         createListItem(`DEPOSİT FROM "${currentUser[0].fullname}"`),
-        createListItem(`Today`),
+        createListItem(`${dateTransfer.toLocaleString()}`),
         createListItem(`From ID: #${currentUser[0].userID}`),
         createListItem(
           `${String(dateTransfer.getHours()).padStart(2, "0")} : ${String(
@@ -1645,9 +1708,10 @@ Current IDs => ${[...countArr]}`
       newUl.firstChild.style.backgroundColor = "#5AC278";
       newUl.style.backgroundColor = "rgba(116, 114, 114,0.3)";
       allUsersAccountMov[answer1].currentUserMovementsFeedback.push(
-        transactions.children[transactions.childElementCount - 1]
+        transactions.children[transactions.childElementCount - 1].outerHTML
       );
       transactions.children[transactions.childElementCount - 1].remove();
+      //setLocalStroge();
     } else if (
       //If Username Is Unique
       countArr.length === 1 &&
@@ -1675,15 +1739,12 @@ Current IDs => ${[...countArr]}`
         )} ${selectedCurrency}, Date: ${dateTransfer.toLocaleString()}`
       );
 
-      function createListItem(text) {
-        const li = document.createElement("li");
-        li.textContent = text;
-        return li;
-      }
       const newUl = document.createElement("ul");
       const newLi = [
         createListItem(`DEPOSİT FROM "${currentUser[0].fullname}"`),
-        createListItem(`Today`),
+        createListItem(
+          `${formatMovementDate(dateTransfer, navigator.language)}`
+        ),
         createListItem(`From ID: #${currentUser[0].userID}`),
         createListItem(
           `${String(dateTransfer.getHours()).padStart(2, "0")} : ${String(
@@ -1705,9 +1766,11 @@ Current IDs => ${[...countArr]}`
       newUl.firstChild.style.backgroundColor = "#5AC278";
       newUl.style.backgroundColor = "rgba(116, 114, 114,0.3)";
       allUsersAccountMov[countArr[0]].currentUserMovementsFeedback.push(
-        transactions.children[transactions.childElementCount - 1]
+        transactions.children[transactions.childElementCount - 1].outerHTML
       );
       transactions.children[transactions.childElementCount - 1].remove();
+      // setLocalStroge();
+      setLocalStrogeFunc();
     }
 
     if (
@@ -1716,16 +1779,13 @@ Current IDs => ${[...countArr]}`
       balance > 0
     ) {
       click++;
-      // Create Transictions Feedback
-      function createListItem(text) {
-        const li = document.createElement("li");
-        li.textContent = text;
-        return li;
-      }
+
       const newUl = document.createElement("ul");
       const newLi = [
         createListItem(`${click}- WİTHDRAWAL TO "${transferMoneyTo.value}"`),
-        createListItem("Today"),
+        createListItem(
+          `${formatMovementDate(dateTransfer, navigator.language)}`
+        ),
         createListItem(`Target ID: #${uid}`),
         createListItem(
           `${String(dateTransfer.getHours()).padStart(2, "0")} : ${String(
@@ -1752,6 +1812,7 @@ Current IDs => ${[...countArr]}`
           transactions.childElementCount - 2
         ].style.animation = "blanks-transiction 1s ease ";
       }
+
       // push to withdrawal values
       allUsersAccountMov[currentUser[0].userID].currencyWithdrawals.push(
         `Mov ${click}: ${new Intl.NumberFormat(navigator.language).format(
@@ -1760,17 +1821,20 @@ Current IDs => ${[...countArr]}`
           transferMoneyTo.value
         }, Date: ${dateTransfer.toLocaleString()}`
       );
+
       // Get Movements feedback
       allUsersAccountMov[
         currentUser[0].userID
-      ].currentUserMovementsFeedback.push(transactions.lastElementChild);
+      ].currentUserMovementsFeedback.push(
+        transactions.lastElementChild.outerHTML
+      );
       if (transactions.childElementCount >= 0 && countSortClick >= 1) {
         allUser[
           currentUser[0].userID
         ].accountMovements.currentUserMovementsFeedback.forEach(function (
           elements
         ) {
-          transactions.appendChild(elements);
+          transactions.innerHTML = elements;
         });
       }
       countSortClick = 0;
@@ -1819,12 +1883,14 @@ Current IDs => ${[...countArr]}`
         );
         incDecValue.classList.remove("hidden");
       }, 300);
+      // setLocalStroge();
+      setLocalStrogeFunc();
     }
     // Dark Mode
     if (darkMode.checked) {
       let feedbackDark = [...transactions.children];
-      feedbackDark.forEach((val) =>
-        [...val.children].forEach((v) => (v.style.color = "#fff"))
+      feedbackDark.forEach(val =>
+        [...val.children].forEach(v => (v.style.color = "#fff"))
       );
     }
   }
@@ -1890,6 +1956,8 @@ closeAccountBtn.addEventListener("click", function () {
         `User => "${closeAccountInputs[0].value}", UserID: #${deleteUserId} is Deleted!`
       );
       console.log(allDeletedUsersInfo);
+      // Set Local Stroge
+
       deletedUserInfo = [];
       logoutfunc();
     } else {
@@ -1915,6 +1983,10 @@ closeAccountBtn.addEventListener("click", function () {
       `User => "${closeAccountInputs[0].value}", UserID: #${deleteUserId} is Deleted!`
     );
     console.log(allDeletedUsersInfo);
+    localStorage.setItem(
+      "All Deleted Users",
+      JSON.stringify(allDeletedUsersInfo)
+    );
     deletedUserInfo = [];
   } else {
     console.log("delete is cancalled");
@@ -1966,9 +2038,14 @@ sort.addEventListener("click", function () {
   }
 });
 
+window.addEventListener("DOMContentLoaded", event => getLocalStroge());
+
 window.addEventListener("beforeunload", function (e) {
   e.preventDefault();
   e.returnValue = "";
+  if (confirm) {
+    logoutfunc();
+  }
 });
 /* <-- THE END --> */
 /* <-- DESİGNED BY YUSUF ÇOBAN -->*/
