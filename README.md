@@ -3,7 +3,7 @@ My Second Project
 
 -- For run correctly --
 
-Click to site settings and allow the "Insecure content"
+IMPORTANT! ===> Click to site settings and allow the "Insecure content" <===
 
 here is the link: https://crypto-bank-app.netlify.app/
 
