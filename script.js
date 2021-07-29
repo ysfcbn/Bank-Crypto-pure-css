@@ -181,19 +181,23 @@ const getLocalStroge = function () {
   );
 
   if (!dataAllSingupUser) return;
-  userSignUp = dataAllSingupUser;
+  for (const member in userSignUp) delete userSignUp[member];
+  userSignUp = JSON.parse(JSON.stringify(dataAllSingupUser));
   console.log(userSignUp);
 
   if (!dataAllUserAccountMov) return;
-  allUsersAccountMov = dataAllUserAccountMov;
+  allUsersAccountMov = [];
+  allUsersAccountMov = JSON.parse(JSON.stringify(dataAllUserAccountMov));
   console.log(allUsersAccountMov);
 
   if (!dataAllUser) return;
-  allUser = dataAllUser;
+  allUser = [];
+  allUser = JSON.parse(JSON.stringify(dataAllUser));
   console.log(dataAllUser);
 
   if (!dataAllDeletedUser) return;
-  allDeletedUsersInfo = dataAllDeletedUser;
+  allDeletedUsersInfo = [];
+  allDeletedUsersInfo = JSON.parse(JSON.stringify(dataAllDeletedUser));
   console.log(allDeletedUsersInfo);
 };
 
@@ -386,6 +390,7 @@ const LogInFunct = function () {
   );
 
   //setLocalStroge();
+  setLocalStrogeFunc();
 };
 
 // LOG-OUT
@@ -686,7 +691,6 @@ $(document).ready(function () {
 
 // counter for use to assign each user as object to allUser array
 let counter = -1;
-
 // SIGN UP -- Save The Data -- Go Login Box
 signUp.addEventListener("click", function (e) {
   e.preventDefault();
@@ -2038,7 +2042,12 @@ sort.addEventListener("click", function () {
   }
 });
 
-window.addEventListener("DOMContentLoaded", event => getLocalStroge());
+window.addEventListener("DOMContentLoaded", event => {
+  getLocalStroge();
+  if (allUser[0]) {
+    counter = allUser.length - 1;
+  }
+});
 
 window.addEventListener("beforeunload", function (e) {
   e.preventDefault();
