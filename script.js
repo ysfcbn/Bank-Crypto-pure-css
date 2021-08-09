@@ -45,7 +45,7 @@ const changeCurrency = function () {
   inBalance += Number(depositAmount.value);
   moneyIn.textContent = Number(inBalance);
 
-  // Reset Money IN
+  // Reset Money OUT
   outBalance += Number(transferMoneyAmount.value);
   moneyOut.textContent = Number(outBalance);
 
@@ -340,7 +340,7 @@ const saveBalance = function (selectedCurrency) {
 const movFeedbackFunc = function () {
   if (transactions.childElementCount >= 0) {
     allUsersAccountMov[currentUser[0].userID].currentUserMovementsFeedback = [];
-    [...transactions.children].forEach(ul =>
+    [...transactions.children].forEach((ul) =>
       allUsersAccountMov[
         currentUser[0].userID
       ].currentUserMovementsFeedback.push(ul.outerHTML)
@@ -518,8 +518,8 @@ mode.addEventListener("click", function () {
     logOutCountdown.style.color = "#e5e5e7";
     tranfers.style.backgroundColor = "transparent";
     let feedbackDark = [...transactions.children];
-    feedbackDark.forEach(val =>
-      [...val.children].forEach(v => (v.style.color = "#fff"))
+    feedbackDark.forEach((val) =>
+      [...val.children].forEach((v) => (v.style.color = "#fff"))
     );
     sun.classList.remove("hidden");
     moon.classList.add("hidden");
@@ -534,7 +534,7 @@ mode.addEventListener("click", function () {
     codeLabel.style.color = "#555";
     tranfers.style.backgroundColor = "#faf8f8";
     let feedbackDark = [...transactions.children];
-    feedbackDark.forEach(ul =>
+    feedbackDark.forEach((ul) =>
       [...ul.children].forEach((li, i) => (li.style.color = "#635b5bb3"))
     );
     feedbackDark.forEach((v, i) => (v.children[0].style.color = "#fff"));
@@ -957,8 +957,8 @@ navLogBtn.addEventListener("click", function (a) {
         // Dark Mode
         if (darkMode.checked) {
           let feedbackDark = [...transactions.children];
-          feedbackDark.forEach(val =>
-            [...val.children].forEach(v => (v.style.color = "#fff"))
+          feedbackDark.forEach((val) =>
+            [...val.children].forEach((v) => (v.style.color = "#fff"))
           );
         }
       }
@@ -1170,8 +1170,8 @@ signIn.addEventListener("click", function (e) {
         // Dark Mode
         if (darkMode.checked) {
           let feedbackDark = [...transactions.children];
-          feedbackDark.forEach(val =>
-            [...val.children].forEach(v => (v.style.color = "#fff"))
+          feedbackDark.forEach((val) =>
+            [...val.children].forEach((v) => (v.style.color = "#fff"))
           );
         }
       }
@@ -1527,15 +1527,15 @@ depositBtn.addEventListener("click", function () {
       ].accountMovements.currentUserMovementsFeedback.forEach(function (
         elements
       ) {
-        transactions.innerHTML = elements;
+        transactions.innerHTML += elements;
       });
     }
 
     // Dark Mode
     if (darkMode.checked) {
       let feedbackDark = [...transactions.children];
-      feedbackDark.forEach(val =>
-        [...val.children].forEach(v => (v.style.color = "#fff"))
+      feedbackDark.forEach((val) =>
+        [...val.children].forEach((v) => (v.style.color = "#fff"))
       );
     }
 
@@ -1606,6 +1606,7 @@ transferMoneyBtn.addEventListener("click", function () {
     // Not Enough Balance
     if (transferMoneyAmount.value > balance) {
       alert("You do not have enough funds to transfer this amount");
+      transferMoneyAmount.value = 0;
       return;
     }
 
@@ -1716,6 +1717,7 @@ Current IDs => ${[...countArr]}`
       );
       transactions.children[transactions.childElementCount - 1].remove();
       //setLocalStroge();
+      setLocalStrogeFunc();
     } else if (
       //If Username Is Unique
       countArr.length === 1 &&
@@ -1838,7 +1840,7 @@ Current IDs => ${[...countArr]}`
         ].accountMovements.currentUserMovementsFeedback.forEach(function (
           elements
         ) {
-          transactions.innerHTML = elements;
+          transactions.innerHTML += elements;
         });
       }
       countSortClick = 0;
@@ -1893,8 +1895,8 @@ Current IDs => ${[...countArr]}`
     // Dark Mode
     if (darkMode.checked) {
       let feedbackDark = [...transactions.children];
-      feedbackDark.forEach(val =>
-        [...val.children].forEach(v => (v.style.color = "#fff"))
+      feedbackDark.forEach((val) =>
+        [...val.children].forEach((v) => (v.style.color = "#fff"))
       );
     }
   }
@@ -1999,6 +2001,7 @@ closeAccountBtn.addEventListener("click", function () {
 
 // Sort Transictions Feedbacks
 sort.addEventListener("click", function () {
+  transactions.innerHTML = "";
   sort.style.animation = "navlog-btn-move 0.1s ease 1";
   setTimeout(() => {
     sort.style.animation = null;
@@ -2007,14 +2010,14 @@ sort.addEventListener("click", function () {
     allUser[
       currentUser[0].userID
     ].accountMovements.currentUserMovementsFeedback.forEach(function (mov) {
-      if (mov.firstElementChild.innerText.includes("DEPOSİT")) {
+      if (mov.includes("DEPOSİT")) {
         sortArr.push(mov);
       }
     });
     allUser[
       currentUser[0].userID
     ].accountMovements.currentUserMovementsFeedback.forEach(function (mov) {
-      if (mov.firstElementChild.innerText.includes("WİTHDRAWAL")) {
+      if (mov.includes("WİTHDRAWAL")) {
         sortArr.push(mov);
       }
     });
@@ -2022,12 +2025,12 @@ sort.addEventListener("click", function () {
   }
   if (countSortClick === 1) {
     sortArr.reverse().forEach(function (elements) {
-      transactions.appendChild(elements);
+      transactions.innerHTML += elements;
     });
     countSortClick++;
   } else if (countSortClick === 2) {
     sortArr.reverse().forEach(function (elements) {
-      transactions.appendChild(elements);
+      transactions.innerHTML += elements;
     });
     countSortClick++;
   } else if (countSortClick === 3) {
@@ -2036,13 +2039,13 @@ sort.addEventListener("click", function () {
     ].accountMovements.currentUserMovementsFeedback.forEach(function (
       elements
     ) {
-      transactions.appendChild(elements);
+      transactions.innerHTML += elements;
     });
     countSortClick = 1;
   }
 });
 
-window.addEventListener("DOMContentLoaded", event => {
+window.addEventListener("DOMContentLoaded", (event) => {
   getLocalStroge();
   if (allUser[0]) {
     counter = allUser.length - 1;
