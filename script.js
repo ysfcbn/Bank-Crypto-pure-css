@@ -150,6 +150,10 @@ const setLocalStrogeFunc = function () {
   localStorage.setItem("All Singup Users", JSON.stringify(userSignUp));
   localStorage.setItem("All Account Mov", JSON.stringify(allUsersAccountMov));
   localStorage.setItem("All User", JSON.stringify(allUser));
+  localStorage.setItem(
+    "All Deleted Users",
+    JSON.stringify(allDeletedUsersInfo)
+  );
   allUsersAccountMov.forEach((user, i) =>
     localStorage.setItem(
       `${i}`,
@@ -1909,6 +1913,7 @@ logOut.addEventListener("click", function () {
 
 // Close Account (--DELETE--)
 closeAccountBtn.addEventListener("click", function () {
+  getLocalStroge();
   const deleteUserId = [];
   for (let i = 0; i < userSignUp.fullname.length; i++) {
     if (
