@@ -1599,11 +1599,13 @@ transferMoneyBtn.addEventListener("click", function () {
     // If transferto input is ""
     if (transferMoneyTo.value === "") {
       alert("Please enter the fullname who you want to transfer");
+      transferMoneyAmount.value = 0;
       return;
     }
     // There Isn't User By This Name
     if (userSignUp.fullname.includes(`${transferMoneyTo.value}`) === false) {
       alert(`"${transferMoneyTo.value}" There Isn't User By This Name!`);
+      transferMoneyAmount.value = 0;
       return;
     }
 
@@ -1630,6 +1632,7 @@ transferMoneyBtn.addEventListener("click", function () {
       alert(
         `${transferMoneyTo.value} You Can't send to Yourself! Please choose other users fullname`
       );
+      transferMoneyAmount.value = 0;
       return;
     }
 
@@ -1652,6 +1655,7 @@ To send ${
 Current IDs => ${[...countArr]}`
       );
       if (answer1 === "" || answer1 === null || answer1 === " ") {
+        transferMoneyAmount.value = 0;
         return;
       }
       answer1 = Number(answer1);
@@ -1666,6 +1670,7 @@ Current IDs => ${[...countArr]}`
             transferMoneyAmount.value
           } amount ${selectedCurrency}`
         );
+        transferMoneyAmount.value = 0;
         return;
       } else uid = answer1;
 
