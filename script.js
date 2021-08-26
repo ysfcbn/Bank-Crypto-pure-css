@@ -463,6 +463,8 @@ const logoutfunc = function () {
   section1.style.animation = "scale-reverse 1.25s ease";
   section2.style.animation = "opacity-scale  1s ease";
   section1.classList.add("absolute");
+  document.querySelector("body").style.overflowY = "hidden";
+
   setTimeout(function () {
     section1.classList.remove("absolute");
     logOutCountdown.style.animation = null;
@@ -474,6 +476,7 @@ const logoutfunc = function () {
     section2.style.display = "none";
     navLog.style.animation = null;
     navLog.style.transform = "translateX(0rem)";
+    document.querySelector("body").style.overflowY = "scroll";
 
     // Clear Inputs
     moneyInterest.textContent = "0.00";
@@ -495,8 +498,6 @@ const logoutfunc = function () {
     countSortClick = 0;
     currentUser.shift();
   }, 1500); //wait 1.5 seconds
-
-  // For readable localStorage
 
   // Set Local Stroge
   setLocalStrogeFunc();
@@ -872,6 +873,7 @@ navLogBtn.addEventListener("click", function (a) {
       transferCrypto.textContent = selectedCurrency;
       navLogBtn.style.borderColor = null;
       navLogBtn.style.animation = "navlog-correct 1.25s ease-in";
+      document.querySelector("body").style.overflowY = "hidden";
 
       // Get Coin Pngs
       for (let i = 0; i < 4; i++) {
@@ -900,6 +902,7 @@ navLogBtn.addEventListener("click", function (a) {
         navLog.classList.add("hidden");
         navCurrency.style.display = "inline-block";
         navLog.style.transform = "translateX(70rem)";
+        document.querySelector("body").style.overflowY = "scroll";
       }, 1100);
 
       console.log(
@@ -1077,6 +1080,7 @@ signIn.addEventListener("click", function (e) {
       currencyNav.value = currency.value;
       selectedInterest = Number(interest.value);
       transferCrypto.textContent = selectedCurrency;
+      document.querySelector("body").style.overflowY = "hidden";
 
       // Get Coin Pngs
       for (let i = 0; i < 4; i++) {
@@ -1094,6 +1098,7 @@ signIn.addEventListener("click", function (e) {
         switchSignUp.disabled = true;
         section1.style.animation = "opacity 1s ease 0.5s";
         section2.style.animation = "opacity-reverse 2s ease 1s ";
+
         setTimeout(function () {
           navLog.style.animation = "navlog 0.75s ease";
           section2.classList.add("absolute");
@@ -1108,6 +1113,7 @@ signIn.addEventListener("click", function (e) {
           navCurrency.style.display = "inline-block";
           navLog.style.transform = "translateX(70rem)";
           switchSignUp.disabled = false;
+          document.querySelector("body").style.overflowY = "scroll";
         }, 1100);
       } else {
         divss[0].classList.add("opacity");
