@@ -229,10 +229,9 @@ const formatMovementDate = function (date, locale) {
 		Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
 	const daysPassed = calcDaysPassed(new Date(), date);
-	console.log(daysPassed);
 
 	if (daysPassed === 0) return "Today";
-	if (daysPassed > 0 && daysPassed <= 1) return "Yesterday";
+	if (daysPassed === 1) return "Yesterday";
 	if (daysPassed < 7) return `${daysPassed} days ago`;
 	if (daysPassed >= 0) {
 		const options = {
@@ -242,6 +241,62 @@ const formatMovementDate = function (date, locale) {
 		};
 		`${new Date(new Date().getTime() - daysPassed * 24 * 60 * 60 * 1000)}`;
 		return new Intl.DateTimeFormat(locale, options).format(date);
+	}
+};
+
+// Uptade Date Feedbacks
+const uptadeFeedbackDates = function (userID) {
+	if (
+		allUsersAccountMov[userID].depositDate.length > 0 ||
+		allUsersAccountMov[userID].transferDate.length > 0
+	) {
+		const htmlObj = allUsersAccountMov[userID].currentUserMovementsFeedback
+			.map(ul => $(ul))
+			.map(ul => ul[0]);
+
+		// String dates convert to date format
+		const depositDates = allUsersAccountMov[userID].depositDate.map(
+			date => new Date(date)
+		);
+
+		// String dates convert to date format
+		const transferDates = allUsersAccountMov[userID].transferDate.map(
+			date => new Date(date)
+		);
+
+		depCounter = witCounter = 0;
+
+		htmlObj.forEach((v, i) => {
+			if (v.children[0].textContent.includes("DEPOSİT")) {
+				v.children[1].textContent = formatMovementDate(
+					depositDates[depCounter],
+					navigator.language
+				);
+				depCounter++;
+			} else if (v.children[0].textContent.includes("WİTHDRAWAL")) {
+				v.children[1].textContent = formatMovementDate(
+					transferDates[witCounter],
+					navigator.language
+				);
+				witCounter++;
+			} else if (
+				v.children[0].textContent.includes("LOGIN") ||
+				v.children[0].textContent.includes("LOGOUT")
+			)
+				v.children[1].textContent = v.children[1].textContent;
+		});
+
+		// push Uptaded dates into feedback array
+		allUsersAccountMov[userID].currentUserMovementsFeedback = [];
+		allUsersAccountMov[userID].currentUserMovementsFeedback.push(
+			...htmlObj.map(ul => ul.outerHTML)
+		);
+		// Get Movements feedback
+		if (allUsersAccountMov[userID].currentUserMovementsFeedback != []) {
+			transactions.innerHTML =
+				allUsersAccountMov[userID].currentUserMovementsFeedback;
+			transactions.innerHTML = transactions.innerHTML.replaceAll(">,", ">");
+		}
 	}
 };
 
@@ -938,14 +993,14 @@ navLogBtn.addEventListener("click", function (a) {
 				// LOG IN Feedback
 				LogInFunct();
 
-				// Get Movements feedback
+				//Get Movements feedback
 				movFeedbackFunc();
-
-				// Get cuurentUser storage
-				currentuserStorage();
 
 				// update feedback dates
 				uptadeFeedbackDates(currentUser[0].userID);
+
+				// Get cuurentUser storage
+				currentuserStorage();
 
 				balance =
 					allUsersAccountMov[currentUser[0].userID][`${selectedCurrency}`];
@@ -1163,6 +1218,7 @@ signIn.addEventListener("click", function (e) {
 			) {
 				// LOG IN Feedback
 				LogInFunct();
+
 				// Get Movements feedback
 				movFeedbackFunc();
 
@@ -2089,58 +2145,6 @@ window.addEventListener("beforeunload", function (e) {
 		logoutfunc();
 	}
 });
-
-const uptadeFeedbackDates = function (userID) {
-	if (
-		allUsersAccountMov[userID].depositDate.length > 0 ||
-		allUsersAccountMov[userID].transferDate.length > 0
-	) {
-		const htmlObj = allUsersAccountMov[userID].currentUserMovementsFeedback
-			.map(ul => $(ul))
-			.map(ul => ul[0]);
-
-		// String dates convert to date format
-		const depositDates = allUsersAccountMov[userID].depositDate.map(
-			date => new Date(date)
-		);
-
-		// String dates convert to date format
-		const transferDates = allUsersAccountMov[userID].transferDate.map(
-			date => new Date(date)
-		);
-
-		depCounter = witCounter = 0;
-
-		htmlObj.forEach((v, i) => {
-			if (v.children[0].textContent.includes("DEPOSİT")) {
-				v.children[1].textContent = formatMovementDate(
-					depositDates[depCounter],
-					navigator.language
-				);
-				depCounter++;
-				console.log(depCounter, i);
-			} else if (v.children[0].textContent.includes("WİTHDRAWAL")) {
-				v.children[1].textContent = formatMovementDate(
-					transferDates[witCounter],
-					navigator.language
-				);
-				witCounter++;
-				console.log(witCounter, i);
-			} else if (
-				v.children[0].textContent.includes("LOGIN") ||
-				v.children[0].textContent.includes("LOGOUT")
-			)
-				v.children[1].textContent = v.children[1].textContent;
-			console.log(v.children[1].textContent);
-		});
-
-		// push Uptaded dates into feedback array
-		allUsersAccountMov[userID].currentUserMovementsFeedback = [];
-		allUsersAccountMov[userID].currentUserMovementsFeedback.push(
-			...htmlObj.map(ul => ul.outerHTML)
-		);
-	}
-};
 
 /* <-- THE END --> */
 /* <-- DESİGNED BY YUSUF ÇOBAN -->*/

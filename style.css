@@ -9,7 +9,8 @@
 	box-sizing: border-box;
 }
 body {
-	overflow: hidden;
+	overflow-y: scroll;
+	overflow-x: hidden;
 	width: 100vw;
 	height: 100vh;
 	font-family: "Open Sans", sans-serif;
@@ -1493,7 +1494,8 @@ label {
 /* For Mobile */
 @media only screen and (max-width: 499px) {
 	body {
-		overflow: visible;
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 
 	/* Navbar */
