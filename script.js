@@ -1620,6 +1620,7 @@ depositBtn.addEventListener("click", function () {
 		// Total Balance
 		depositBtn.disabled = true;
 		transferMoneyBtn.disabled = true;
+		logOut.disabled = true;
 		totalBalance.classList.remove("total-balance-move2");
 		totalBalance.classList.add("total-balance-move1");
 		incDecValue.style.color = "#5AC278";
@@ -1637,6 +1638,7 @@ depositBtn.addEventListener("click", function () {
 			totalBalance.classList.add("total-balance-move2");
 			depositBtn.disabled = false;
 			transferMoneyBtn.disabled = false;
+			logOut.disabled = false;
 			console.log(allUsersAccountMov[currentUser[0].userID]);
 			// interest increase balance
 			const calculated = calculateInterest(
@@ -1711,7 +1713,7 @@ transferMoneyBtn.addEventListener("click", function () {
 			return;
 		}
 
-		// If Currentuser Has Same UserName - delete from countArr the currentuser uid
+		// If Currentuser Has Same other user's UserName - delete from countArr the currentuser uid
 		if (countArr.includes(currentUser[0].userID)) {
 			const index = countArr.indexOf(currentUser[0].userID);
 			countArr.splice(index, 1);
@@ -1731,6 +1733,7 @@ Current IDs => ${[...countArr]}`
 			);
 			if (answer1 === "" || answer1 === null || answer1 === " ") {
 				transferMoneyAmount.value = 0;
+				allUsersAccountMov[currentUser[0].userID].transferDate.pop();
 				return;
 			}
 			answer1 = Number(answer1);
@@ -1746,6 +1749,7 @@ Current IDs => ${[...countArr]}`
 					} amount ${selectedCurrency}`
 				);
 				transferMoneyAmount.value = 0;
+				allUsersAccountMov[currentUser[0].userID].transferDate.pop();
 				return;
 			} else uid = answer1;
 
@@ -1753,10 +1757,11 @@ Current IDs => ${[...countArr]}`
 				allUsersAccountMov[answer1][`${selectedCurrency}`] +
 				Number(transferMoneyAmount.value);
 			allUsersAccountMov[answer1][`${selectedCurrency}`] = resultWithdrawal;
+
 			console.log(
 				`Withdrawal ${new Intl.NumberFormat(navigator.language).format(
 					transferMoneyAmount.value
-				)} ${selectedCurrency} to => UserID: #${answer1}, , Date: ${dateTransfer.toLocaleString()}`
+				)} ${selectedCurrency} to => UserID: #${answer1}, Date: ${dateTransfer.toLocaleString()}`
 			);
 
 			// Push to deposit information to sended user's currencyDeposit array
@@ -1767,6 +1772,7 @@ Current IDs => ${[...countArr]}`
 					transferMoneyAmount.value
 				)} ${selectedCurrency}, Date: ${dateTransfer.toLocaleString()}`
 			);
+			allUsersAccountMov[uid].depositDate.push(dateTransfer);
 
 			// transfer balance to selected user account. mov.
 			allUser[answer1].accountMovements = allUsersAccountMov[answer1];
@@ -1800,6 +1806,7 @@ Current IDs => ${[...countArr]}`
 				transactions.children[transactions.childElementCount - 1].outerHTML
 			);
 			transactions.children[transactions.childElementCount - 1].remove();
+
 			//setLocalStroge();
 			setLocalStrogeFunc();
 		} else if (
@@ -1933,6 +1940,7 @@ Current IDs => ${[...countArr]}`
 			// Total Balance
 			transferMoneyBtn.disabled = true;
 			depositBtn.disabled = true;
+			logOut.disabled = true;
 			totalBalance.classList.remove("total-balance-move2");
 			totalBalance.classList.add("total-balance-move1");
 			incDecValue.style.color = "#ED385C";
@@ -1950,6 +1958,7 @@ Current IDs => ${[...countArr]}`
 				totalBalance.classList.add("total-balance-move2");
 				transferMoneyBtn.disabled = false;
 				depositBtn.disabled = false;
+				logOut.disabled = false;
 				console.log(allUsersAccountMov[currentUser[0].userID]);
 				transferMoneyAmount.value = 0;
 				// interest increase balance
